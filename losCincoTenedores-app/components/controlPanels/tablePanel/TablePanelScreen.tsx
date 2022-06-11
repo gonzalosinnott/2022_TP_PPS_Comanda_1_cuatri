@@ -155,8 +155,18 @@ const TablePanel = () => {
     }  
 
     //NAVIGATION
+    const handleOrder= () => {
+      navigation.replace("ClientOrder")
+    } 
+
+    //NAVIGATION
     const handleChat= () => {
       navigation.replace("Chat")
+    }  
+
+    //NAVIGATION
+    const handleMenu= () => {
+      navigation.replace("Menu")
     }  
     
     return (
@@ -202,13 +212,13 @@ const TablePanel = () => {
                     <Text style={styles.buttonText}>REALIZAR ENCUESTA</Text>              
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonLayout}>
+                <TouchableOpacity onPress={handleMenu} style={styles.buttonLayout}>
                   <View style={styles.tableButtonLayout}>
                     <Image source={menuIcon} style={styles.buttonImage} />
                     <Text style={styles.buttonText}>VER MENU</Text>              
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonLayout}>
+                <TouchableOpacity onPress={handleOrder} style={styles.buttonLayout}>
                   <View style={styles.tableButtonLayout}>
                     <Image source={orderIcon} style={styles.buttonImage} />
                     <Text style={styles.buttonText}>REALIZAR PEDIDO</Text>              
