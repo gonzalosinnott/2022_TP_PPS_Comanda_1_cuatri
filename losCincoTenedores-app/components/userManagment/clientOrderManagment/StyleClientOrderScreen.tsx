@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const win = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
@@ -15,6 +17,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'transparent',
+        width: '100%',
     },
     headerIcon: {
         height: 45,
@@ -24,7 +27,7 @@ export default StyleSheet.create({
     },
     headerText: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 25,
         fontFamily: 'Oswald_500Medium',
         textAlign: 'center',
         alignContent: 'center',
@@ -35,10 +38,19 @@ export default StyleSheet.create({
         margin: 10,
         borderRadius: 10,
         borderWidth: 2,
-        width: '90%',
+        width: win.width * 0.9,
         justifyContent: 'space-between',
         alignContent: 'center',
         alignItems: 'center',
+        height:490, 
+
+    },
+    imageContainer: {
+        flexDirection: 'row', 
+        alignContent: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5
     },
     infoContainer: {
         flexDirection: 'row', 
@@ -51,8 +63,6 @@ export default StyleSheet.create({
     cardImage: {
         flex: 1, 
         borderRadius: 10,
-        height:120, 
-        width:120,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -65,12 +75,12 @@ export default StyleSheet.create({
     },
     tableHeaderText: {
         color: '#3D4544',
-        fontSize: 14,
+        fontSize: 25,
         fontFamily: 'Oswald_500Medium',
     },
     tableCellText: {
         color: 'black',
-        fontSize: 25,
+        fontSize: 18,
         fontFamily: 'Oswald_500Medium',
     },
     modalContainer: {
@@ -112,19 +122,58 @@ export default StyleSheet.create({
     buttonLayout: {
         backgroundColor: '#A4C3B2',
         borderColor: '#A4C3B2',
-        marginTop: 20,
         margin: 5,
-        width: "35%",
-        height: 60,
+        width: "70%",
         padding: 15,
         borderRadius: 30,
         borderWidth: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
     },
       buttonText: {
         color: 'black',
         fontSize: 15,
         fontFamily: 'Oswald_500Medium',
+    },
+    rowContainer: {
+        flexDirection: 'row', 
+        alignContent: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 5
+    },
+    amountText: {
+        color: 'black',
+        fontSize: 18,
+        fontFamily: 'Oswald_500Medium',
+        alignSelf: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    orderButtonLayout: {
+        backgroundColor: '#A4C3B2',
+        borderColor: '#A4C3B2',
+        margin: 5,
+        width: "95%",
+        padding: 15,
+        borderRadius: 5,
+        borderWidth: 0,
+        alignSelf: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    confirmIcon: {
+        height: 100,
+        width: 100,
+        alignSelf: 'center',
+        alignContent: 'center',
+        resizeMode: 'contain',
+        marginRight: 10,
     },
 });

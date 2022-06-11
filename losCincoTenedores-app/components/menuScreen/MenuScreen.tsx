@@ -11,9 +11,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from 'firebase/storage'
 import Carousel from 'react-native-looped-carousel-improved';
 
-const MenuScreen = () => {
-
-  
+const MenuScreen = () => {  
 
   //CONSTANTES
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -114,9 +112,10 @@ const MenuScreen = () => {
     <View style={styles.container}>
         {loading}
         <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage} imageStyle = {{opacity:0.5}}>
-        <ScrollView>
 
         <View style={styles.body}>
+        <ScrollView>
+
             {dataDrinks.map((item: {imageUrl1: any;
                                     imageUrl2: any; 
                                     imageUrl3: any;  
@@ -145,13 +144,13 @@ const MenuScreen = () => {
                   </Carousel>
                 </View>                  
                 <View style={{ height:300}}>      
-                  <Text style={styles.tableHeaderText}>---------------------------------------</Text>                      
+                <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                   <View style={styles.infoContainer}>
                     <Text style={styles.tableHeaderText}>{item.name}</Text>
                     <Text style={styles.tableHeaderText}>$ {item.price}  </Text>
                   </View>
                   <Text style={styles.tableCellText}>{item.description}</Text>                  
-                  <Text style={styles.tableHeaderText}>---------------------------------------</Text>                      
+                  <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                 </View>
               </View>              
             ))}
@@ -184,18 +183,18 @@ const MenuScreen = () => {
                   </Carousel>
                 </View>                  
                 <View style={{ height:300}}>      
-                <Text style={styles.tableHeaderText}>---------------------------------------</Text>                      
+                <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                   <View style={styles.infoContainer}>
                     <Text style={styles.tableHeaderText}>{item.name}</Text>
                     <Text style={styles.tableHeaderText}>$ {item.price}  </Text>
                   </View>
                   <Text style={styles.tableCellText}>{item.description}</Text>                  
-                  <Text style={styles.tableHeaderText}>---------------------------------------</Text>                      
+                  <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                 </View>
               </View>              
             ))}
-        </View> 
         </ScrollView> 
+        </View> 
 
         <View>
           <Modal backdropOpacity={0.5} animationIn="rotate" animationOut="rotate" isVisible={isModalSpinnerVisible}>

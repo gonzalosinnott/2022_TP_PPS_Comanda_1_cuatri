@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const win = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
@@ -36,11 +38,11 @@ export default StyleSheet.create({
         margin: 10,
         borderRadius: 10,
         borderWidth: 2,
-        width: '90%',
+        width: win.width * 0.9,
         justifyContent: 'space-between',
         alignContent: 'center',
         alignItems: 'center',
-        height:400, 
+        height:410, 
 
     },
     imageContainer: {
@@ -78,7 +80,7 @@ export default StyleSheet.create({
     },
     tableCellText: {
         color: 'black',
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: 'Oswald_500Medium',
     },
     modalContainer: {
