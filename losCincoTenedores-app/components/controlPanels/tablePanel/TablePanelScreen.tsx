@@ -153,6 +153,11 @@ const TablePanel = () => {
     const handleOldClientSurvey= () => {
       navigation.replace("OldClientSurvey")
     }  
+
+    //NAVIGATION
+    const handleChat= () => {
+      navigation.replace("Chat")
+    }  
     
     return (
       !openQR ?
@@ -209,7 +214,7 @@ const TablePanel = () => {
                     <Text style={styles.buttonText}>REALIZAR PEDIDO</Text>              
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonLayout}>
+                <TouchableOpacity onPress={handleChat} style={styles.buttonLayout}>
                   <View style={styles.tableButtonLayout}>
                     <Image source={chatIcon} style={styles.buttonImage} />
                     <Text style={styles.buttonText}>CONSULTAR AL MOZO</Text>              

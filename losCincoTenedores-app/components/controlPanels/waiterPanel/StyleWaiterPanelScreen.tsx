@@ -29,4 +29,34 @@ export default StyleSheet.create({
         textAlign: 'center',
         alignContent: 'center',
     },
+    buttonLayout: {
+        backgroundColor: '#A4C3B2',
+        borderColor: '#A4C3B2',
+        marginTop: 20,
+        margin: 5,
+        width: "80%",
+        height: 60,
+        padding: 15,
+        borderRadius: 30,
+        borderWidth: 0,
+        justifyContent: 'center',
+    }, 
+    buttonText: {
+        color: '#545454',
+        fontSize: 16,
+        fontFamily: 'Oswald_500Medium',
+        textAlign: 'center',
+    },
+    RowContainerButtonLayout: {
+        flexDirection: "row", 
+        alignItems: 'center', 
+    }, 
+    buttonImage: {
+        justifyContent: 'flex-start',
+        padding: 10,
+        margin: 5,
+        height: 50,
+        width: 50,
+        resizeMode: 'contain',
+    }
 });

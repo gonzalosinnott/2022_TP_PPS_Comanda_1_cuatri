@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../waiterPanel/StyleWaiterPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon } from "../waiterPanel/AssetsWaiterPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, chatIcon } from "../waiterPanel/AssetsWaiterPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -21,6 +21,11 @@ const WaiterPanel = () => {
           })
           .catch(error => alert(error.message))
     }
+
+    //NAVIGATION
+    const handleChat= () => {
+      navigation.replace("Chat")
+    }  
     
     
     //HEADER
@@ -51,8 +56,12 @@ const WaiterPanel = () => {
             <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage} imageStyle = {{opacity:0.5}}>
                 <View style={styles.body}>
 
-                    <Text>HOLA</Text>
-
+                  <TouchableOpacity onPress={handleChat} style={styles.buttonLayout}>
+                    <View style={styles.RowContainerButtonLayout}>
+                      <Image source={chatIcon} style={styles.buttonImage} />
+                      <Text style={styles.buttonText}>RESPONDER CONSULTAS</Text>              
+                    </View>
+                  </TouchableOpacity>
                 
                 </View>                
             </ImageBackground>           

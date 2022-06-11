@@ -32,6 +32,8 @@ import NewClientSurvey from './components/surveys/clientSurvey/ClientSurveyScree
 import AdminSurvey from './components/surveys/adminSurvey/AdminSurveyScreen';
 import EmployeeSurvey from './components/surveys/employeeSurvey/EmployeeSurveyScreen';
 import OldClientSurvey from './components/surveys/oldClientSurvey/OldClientSurveyScreen';
+import { chatIcon } from './components/controlPanels/waiterPanel/AssetsWaiterPanelScreen';
+import ChatScreen from './components/chatScreen/ChatScreen';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -88,6 +90,7 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="OldClientSurvey" component={OldClientSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="AdminSurvey" component={AdminSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="EmployeeSurvey" component={EmployeeSurvey} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         
       </Stack.Navigator>
     </NavigationContainer> );
