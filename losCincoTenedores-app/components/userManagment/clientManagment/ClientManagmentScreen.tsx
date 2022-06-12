@@ -23,6 +23,7 @@ const ClientManagment = () => {
   const [data, setData] = useState<any>([]);
   const [rejectMotive, setRejectMotive] = useState('');
   const [rejectId, setRejectId] = useState('');
+  
 
   //RETURN
   const handleReturn = () => {
