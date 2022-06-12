@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../chefPanel/StyleChefPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, productIcon } from "../chefPanel/AssetsChefPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, productIcon, ordersIcon } from "../chefPanel/AssetsChefPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -25,7 +25,11 @@ const ChefPanel = () => {
     //NAVIGATION
     const handleProductRegister = () => {
       navigation.replace("ProductRegistration")
-    }      
+    } 
+    
+    const handleOrders = () => {
+      navigation.replace("ProductOrder")
+    } 
     
     //HEADER
     useLayoutEffect(() => {
@@ -57,10 +61,17 @@ const ChefPanel = () => {
 
                 <TouchableOpacity onPress = { handleProductRegister } style={styles.buttonLayout}>
                   <View style={styles.registerButtonLayout}>
-                      <Image source={productIcon} style={styles.buttonImage} />
-                      <Text style={styles.buttonText}>ALTA DE PRODUCTO</Text>              
-                    </View>
-                  </TouchableOpacity>
+                    <Image source={productIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>ALTA DE PRODUCTO</Text>              
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress = { handleOrders } style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={ordersIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>VER PEDIDOS PENDIENTES</Text>              
+                  </View>
+                </TouchableOpacity>
                 
                 </View>                
             </ImageBackground>           

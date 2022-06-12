@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../barPanel/StyleBarPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, productIcon } from "./AssetsBarPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, productIcon, ordersIcon } from "./AssetsBarPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -26,6 +26,10 @@ const BarPanel = () => {
     const handleProductRegister = () => {
       navigation.replace("ProductRegistration")
     }  
+
+    const handleOrders = () => {
+      navigation.replace("ProductOrder")
+    } 
     
     
     //HEADER
@@ -50,6 +54,7 @@ const BarPanel = () => {
         });
       }, []);
 
+
     
     return (
         <View style={styles.container}>
@@ -62,6 +67,13 @@ const BarPanel = () => {
                       <Text style={styles.buttonText}>ALTA DE PRODUCTO</Text>              
                     </View>
                   </TouchableOpacity>
+
+                  <TouchableOpacity onPress = { handleOrders } style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={ordersIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>VER PEDIDOS PENDIENTES</Text>              
+                  </View>
+                </TouchableOpacity>
                 
                 </View>                
             </ImageBackground>           
