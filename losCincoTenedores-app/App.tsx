@@ -35,6 +35,7 @@ import OldClientSurvey from './components/surveys/oldClientSurvey/OldClientSurve
 import { chatIcon } from './components/controlPanels/waiterPanel/AssetsWaiterPanelScreen';
 import ChatScreen from './components/chatScreen/ChatScreen';
 import MenuScreen from './components/menuScreen/MenuScreen';
+import ClientOrder from './components/userManagment/clientOrderManagment/ClientOrderScreen';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -93,6 +94,7 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="EmployeeSurvey" component={EmployeeSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Menu" component={MenuScreen} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="ClientOrder" component={ClientOrder} />
       </Stack.Navigator>
     </NavigationContainer> );
       }      

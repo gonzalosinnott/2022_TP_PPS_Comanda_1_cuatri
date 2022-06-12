@@ -74,9 +74,10 @@ export default StyleSheet.create({
         resizeMode: 'contain',
     },
     tableHeaderText: {
-        color: '#3D4544',
+        color: 'black',
         fontSize: 25,
         fontFamily: 'Oswald_500Medium',
+        textAlign: 'center',
     },
     tableCellText: {
         color: 'black',
