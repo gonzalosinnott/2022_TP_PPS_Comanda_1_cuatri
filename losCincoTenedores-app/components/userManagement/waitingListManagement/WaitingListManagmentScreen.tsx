@@ -1,6 +1,6 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import styles from "../waitingListManagment/StyleWaitingListManagmentScreen";
+import styles from "./StyleWaitingListManagmentScreen";
 import { Image, ImageBackground, Text, TouchableOpacity, View, ScrollView, TextInput, Alert } from "react-native";
 import { returnIcon, backgroundImage, cancelIcon } from "./AssetsWaitingListManagmentScreen";
 import Modal from "react-native-modal";
@@ -100,7 +100,9 @@ const WaitingListManagment = () => {
       //ASIGNAR MESA
       const ref = doc(db, "tableInfo", id);
       const status =  'assigned';
+      const orderStatus = 'waitingOrder';
       await updateDoc(ref, {status:status});
+      await updateDoc(ref, {orderStatus:orderStatus});
       await updateDoc(ref, {assignedClient:user});
       //CAMBIAR STATUS DEL CLIENTE EN LA LISTA DE ESPERA
       const refUser = doc(db, "waitingList", userId);

@@ -35,6 +35,7 @@ import {
   DocumentReference,
   getDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import Carousel from "react-native-looped-carousel-improved";
@@ -56,6 +57,7 @@ const ClientOrder = () => {
   const win = Dimensions.get("window");
   const [isModalConfirmOrderVisible, setModalConfirmOrderVisible] = useState(false);
   const [loadingOrders, setLoadingOrders] = useState(false);
+  const [tableId, setTableId] = useState("");
 
 
   //RETURN
@@ -82,6 +84,7 @@ const ClientOrder = () => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (doc) => {
       setTableNumber(doc.data().tableNumber);
+      setTableId(doc.id);
     });
   };
 
@@ -335,9 +338,9 @@ const ClientOrder = () => {
 
   //ABRIR / CERRAR MODAL
   const toggleModalOrder = () => {
-    setModalConfirmOrderVisible(!isModalConfirmOrderVisible);
-    toggleSpinnerAlert();
     getOrders();
+    toggleSpinnerAlert();
+    setModalConfirmOrderVisible(!isModalConfirmOrderVisible);
   };
 
   
@@ -357,19 +360,14 @@ const ClientOrder = () => {
     toggleSpinnerAlert();
     getOrders();
   }
-  
+
+ 
   //CONFIRMAR ORDEN
   const confirmOrder = async () => {
     try {
-      const q = query(
-        collection(db, "orders"),
-        where("client", "==", auth.currentUser?.email)
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        doc.data().status = "confirmed";
-      }
-      );
+      const ref = doc(db, "tableInfo", tableId);
+      const data =  'ordered';
+      await updateDoc(ref, {orderStatus:data});     
       Toast.showWithGravity(
         "Orden confirmada",
         Toast.LONG,

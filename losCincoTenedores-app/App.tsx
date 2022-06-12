@@ -25,17 +25,19 @@ import ClientRegistration from './components/userRegistration/clientRegistration
 import EmployeeRegistration from './components/userRegistration/employeeRegistration/EmployeeRegistrationScreen';
 import TableRegistration from './components/userRegistration/tableRegistration/TableRegistrationScreen';
 import ProductRegistration from './components/userRegistration/productRegistration/ProductRegistrationScreen';
-import ClientManagment from './components/userManagment/clientManagment/ClientManagmentScreen';
-import WaitingListManagment from './components/userManagment/waitingListManagment/WaitingListManagmentScreen';
+
 import TablePanel from './components/controlPanels/tablePanel/TablePanelScreen';
 import NewClientSurvey from './components/surveys/clientSurvey/ClientSurveyScreen';
 import AdminSurvey from './components/surveys/adminSurvey/AdminSurveyScreen';
 import EmployeeSurvey from './components/surveys/employeeSurvey/EmployeeSurveyScreen';
 import OldClientSurvey from './components/surveys/oldClientSurvey/OldClientSurveyScreen';
-import { chatIcon } from './components/controlPanels/waiterPanel/AssetsWaiterPanelScreen';
 import ChatScreen from './components/chatScreen/ChatScreen';
 import MenuScreen from './components/menuScreen/MenuScreen';
-import ClientOrder from './components/userManagment/clientOrderManagment/ClientOrderScreen';
+import ClientOrder from './components/userManagement/clientOrderManagement/ClientOrderScreen';
+import WaiterOrder from './components/userManagement/waiterOrderManagement/WaiterOrderScreen';
+import ClientManagment from './components/userManagement/clientManagement/ClientManagmentScreen';
+import WaitingListManagment from './components/userManagement/waitingListManagement/WaitingListManagmentScreen';
+import ProductOrder from './components/userManagement/productOrderManagement/ProductOrderScreen';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -95,6 +97,8 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Menu" component={MenuScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="ClientOrder" component={ClientOrder} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="WaiterOrder" component={WaiterOrder} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="ProductOrder" component={ProductOrder} />
       </Stack.Navigator>
     </NavigationContainer> );
       }      
