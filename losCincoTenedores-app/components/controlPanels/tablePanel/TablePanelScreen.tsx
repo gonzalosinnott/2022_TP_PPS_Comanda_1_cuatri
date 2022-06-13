@@ -40,13 +40,14 @@ const TablePanel = () => {
 
     //SETEO INICIAL DE DATA Y PARA LOS RETURN
     const checkClientStatus = async () => {
+      
       const query1 = query(collection(db, "waitingList"), where("user", "==", auth.currentUser?.email), where("status", "==", "assigned"));
       const querySnapshot1 = await getDocs(query1);
-      if(querySnapshot1.size > 0){
-        setAssignedTable(true);
-        const query2 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email));
+      if(querySnapshot1.size > 0){        
+        const query2 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("status", "==", "assigned"));
         const querySnapshot2= await getDocs(query2);
         querySnapshot2.forEach(async (doc) => {
+          setAssignedTable(true);
           setTableNumber(doc.data().tableNumber);
         });
       }
@@ -93,27 +94,93 @@ const TablePanel = () => {
 
     //MANEJADOR MESA
     const handleTable = async (tableNumberQR) => {
-      if(assignedTable){
-        //CHEQUEAR ACA SI TIENE PEDIDO EN CURSO
-        //Y SINO MOSTAR ESTE MENSAJE
-        Toast.showWithGravity(
-          "YA TIENE UNA MESA ASIGNADA",
-          Toast.LONG,
-          Toast.CENTER);
-          return;
-      }
-      const query1 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR));
-      const querySnapshot1 = await getDocs(query1);
-      if(querySnapshot1.size > 0){
-        setTableNumber(tableNumberQR);
-        setAssignedTable(true);
+
+      if(!assignedTable) {     
+        const query1 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR));
+        const querySnapshot1 = await getDocs(query1);
+        if(querySnapshot1.size > 0){        
+          setTableNumber(tableNumberQR);
+          setAssignedTable(true);
+        }
+        else {
+          Toast.showWithGravity(
+            "NO ESTA ASIGNADO A ESA MESA",
+            Toast.LONG,
+            Toast.CENTER);
+        }  
       }
       else {
+        const query1 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR));
+        const querySnapshot1 = await getDocs(query1);
+        if(querySnapshot1.size > 0){        
+          setTableNumber(tableNumberQR);
+          setAssignedTable(true);
+          checkTableStatus(tableNumberQR);
+        }
+        else {
+          Toast.showWithGravity(
+            "NO ESTA ASIGNADO A ESA MESA",
+            Toast.LONG,
+            Toast.CENTER);
+        }        
+      }
+    }
+        
+    //MANEJADOR ESTADOS DE LA MESA
+    const checkTableStatus = async (tableNumberQR) => {
+      const query1 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "waitingOrder"));
+      const querySnapshot1 = await getDocs(query1);
+      if(querySnapshot1.size > 0){
         Toast.showWithGravity(
-          "TODAVIA NO SE LE ASIGNO MESA O ESCANEO UN QR DE OTRA MESA",
+          "TODAVIA NO REALIZO SU PEDIDO",
           Toast.LONG,
           Toast.CENTER);
-      } 
+      }
+
+      const query2 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "ordered"));
+      const querySnapshot2 = await getDocs(query2);
+      if(querySnapshot2.size > 0){
+        Toast.showWithGravity(
+          "EN BREVE EL MOZO PASARA A TOMAR SU PEDIDO",
+          Toast.LONG,
+          Toast.CENTER);
+      }
+
+      const query3 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "orderTaken"));
+      const querySnapshot3 = await getDocs(query3);
+      if(querySnapshot3.size > 0){
+        Toast.showWithGravity(
+          "EL MOZO YA TOMO SU PEDIDO",
+          Toast.LONG,
+          Toast.CENTER);
+      }
+
+      const query4 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "orderInProgress"));
+      const querySnapshot4 = await getDocs(query4);
+      if(querySnapshot4.size > 0){
+        Toast.showWithGravity(
+          "SU PEDIDO FUE INGRESADO A ELABORACIÓN",
+          Toast.LONG,
+          Toast.CENTER);
+      }
+
+      const query5 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "orderReady"));
+      const querySnapshot5 = await getDocs(query5);
+      if(querySnapshot5.size > 0){
+        Toast.showWithGravity(
+          "SU PEDIDO HA SIDO ELABORADO",
+          Toast.LONG,
+          Toast.CENTER);
+      }
+
+      const query6 = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("tableNumber", "==", tableNumberQR), where("orderStatus", "==", "orderDelivered"));
+      const querySnapshot6 = await getDocs(query6);
+      if(querySnapshot6.size > 0){
+        Toast.showWithGravity(
+          "SU PEDIDO FUE ENTREGADO",
+          Toast.LONG,
+          Toast.CENTER);
+      }
     }
 
     //MANEJADOR DEL QR Y CAMARA
@@ -167,7 +234,12 @@ const TablePanel = () => {
     //NAVIGATION
     const handleMenu= () => {
       navigation.replace("Menu")
-    }  
+    } 
+    
+    //NAVIGATION
+    const handlePay= () => {
+      navigation.replace("Pay")
+    } 
     
     return (
       !openQR ?
@@ -230,7 +302,7 @@ const TablePanel = () => {
                     <Text style={styles.buttonText}>CONSULTAR AL MOZO</Text>              
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonLayout}>
+                <TouchableOpacity onPress={handlePay} style={styles.buttonLayout}>
                   <View style={styles.tableButtonLayout}>
                     <Image source={payIcon} style={styles.buttonImage} />
                     <Text style={styles.buttonText}>PAGAR</Text>              

@@ -44,14 +44,8 @@ const WaiterOrder = () => {
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [tableData, setTableData] = useState<any>([]);
   const [orderData, setOrderData] = useState<any>([]);
+  const [waitingListData, setWaitingListData] = useState<any>([]);
   const [client, setClient] = useState("");
-
-  useLayoutEffect(() => {
-    const getData = () => {
-      getTables();
-    }
-    return getData;
-  }, [])
 
   //RETURN
   const handleReturn = () => {
@@ -62,6 +56,7 @@ const WaiterOrder = () => {
   useFocusEffect(
     useCallback(() => {
       getTables();
+      getWaitingListData();
       toggleSpinnerAlert();
     }, [])
   );
@@ -75,6 +70,20 @@ const WaiterOrder = () => {
   };
 
   //GET DATA USUARIOS
+  const getWaitingListData = async () => {
+    setWaitingListData([]);
+    try {
+      const q = query(collection(db, "waitingList"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (doc) => {
+        const res: any = { ...doc.data(), id: doc.id };
+        setWaitingListData((arr: any) => [...arr, { ...res, id: doc.id }]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTables = async () => {
     setLoadingTables(true);
     setTableData([]);
@@ -91,13 +100,14 @@ const WaiterOrder = () => {
       setLoadingTables(false);
     }
   };
-
   //OBTENER ORDENES POR USUARIO
   const getOrders = async (user) => {
     setLoadingOrders(true);
     setOrderData([]);
     try {
-      const q = query(collection(db, "orders"), where("client", "==", user));
+      const q = query(collection(db, "orders"), 
+                where("client", "==", user),
+                where("status", "==", "ordered"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const res: any = { ...doc.data(), id: doc.id };
@@ -139,6 +149,43 @@ const WaiterOrder = () => {
     setClient(id);
     deliverOrderToTable(id);    
   };
+
+  const closeTable = async (id: any, client, status: any) => {
+    if(status === "orderDelivered"){
+      Toast.showWithGravity(
+        "EL CLIENTE AUN NO PAGO",
+        Toast.LONG,
+        Toast.CENTER
+      );
+    }
+
+    if(status === "orderPaid"){
+      try {      
+        const ref = doc(db, "tableInfo", id);
+        const orderStatus: any = "";
+        const status : any = "free";
+        const assignedClient: any = "";
+        await updateDoc(ref, { status: status });
+        await updateDoc(ref, { orderStatus: orderStatus });
+        await updateDoc(ref, { assignedClient: assignedClient });      
+      } catch (error: any) {
+        Toast.showWithGravity(error.code, Toast.LONG, Toast.CENTER);
+      } 
+      try {
+        waitingListData.map(
+          async (item: { id: any; user: any }) => {
+            if (item.user === client) {
+              const ref = doc(db, "waitingList", item.id);
+              await deleteDoc(ref);            
+            }
+          }
+        );
+      } catch (error: any) {
+        Toast.showWithGravity(error.code, Toast.LONG, Toast.CENTER);
+      }
+      getTables(); 
+    }    
+  }
 
   //SACAR PEDIDO DE LA ORDEN
   const deleteOrderItem = async (id: any, client: any) => {
@@ -212,7 +259,7 @@ const WaiterOrder = () => {
         async (item: { id: any; orderStatus: any; assignedClient: any }) => {
           if (item.assignedClient === client) {
             const ref = doc(db, "tableInfo", item.id);
-            const data: any = "delivered";
+            const data: any = "orderDelivered";
             await updateDoc(ref, { orderStatus: data });
             Toast.showWithGravity(
               "Pedido Entregado a la Mesa",
@@ -229,7 +276,6 @@ const WaiterOrder = () => {
       toggleSpinnerAlert();
     }
   };
-
 
   const toggleModalOrderConfirmation = () => {
     setOrderData([]);
@@ -351,10 +397,10 @@ const WaiterOrder = () => {
                       </TouchableOpacity>
                     ) : null}
 
-                    {item.orderStatus === "delivered" ? (
+                    {item.orderStatus === "orderDelivered" || item.orderStatus === "orderPaid" ? (
                       <TouchableOpacity
                         style={styles.tableStatusButtonLayout}
-                        onPress={() => closeTable(item.assignedClient)}
+                        onPress={() => closeTable(item.id, item.assignedClient, item.orderStatus)}
                       >
                         <Text style={styles.buttonText}>CERRAR MESA</Text>
                       </TouchableOpacity>

@@ -167,7 +167,8 @@ const ClientOrder = () => {
     try {
       const q = query(
         collection(db, "orders"),
-        where("client", "==", auth.currentUser?.email)
+        where("client", "==", auth.currentUser?.email),
+        where("status", "==", "ordered")
       );
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
