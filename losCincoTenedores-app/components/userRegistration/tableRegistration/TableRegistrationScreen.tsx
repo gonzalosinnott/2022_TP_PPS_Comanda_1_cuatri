@@ -121,7 +121,7 @@ const TableRegistration = () => {
           image:fileRef.fullPath,
           status: "free",
           assignedClient: "",
-          orderStatus: "",
+          orderStatus: "waitingOrder",
           creationDate:new Date()          
         });        
         Toast.showWithGravity(

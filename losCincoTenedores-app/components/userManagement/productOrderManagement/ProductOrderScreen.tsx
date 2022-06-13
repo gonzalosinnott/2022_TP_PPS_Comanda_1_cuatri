@@ -171,7 +171,7 @@ const AdminSurvey = () => {
         </TouchableOpacity>
       ),
       headerTitle: () => (
-        <Text style={styles.headerText}>EVALUACION DE DESEMPEÑO LABORAL</Text>
+        <Text style={styles.headerText}>PEDIDOS PENDIENTES DE ELABORACIÓN</Text>
       ),
       headerTintColor: "transparent",
       headerBackButtonMenuEnabled: false,

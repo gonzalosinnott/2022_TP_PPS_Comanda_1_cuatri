@@ -38,6 +38,7 @@ import WaiterOrder from './components/userManagement/waiterOrderManagement/Waite
 import ClientManagment from './components/userManagement/clientManagement/ClientManagmentScreen';
 import WaitingListManagment from './components/userManagement/waitingListManagement/WaitingListManagmentScreen';
 import ProductOrder from './components/userManagement/productOrderManagement/ProductOrderScreen';
+import Pay from './components/userManagement/payManagement/PayScreen';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -99,6 +100,7 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="ClientOrder" component={ClientOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="WaiterOrder" component={WaiterOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="ProductOrder" component={ProductOrder} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="Pay" component={Pay} />
       </Stack.Navigator>
     </NavigationContainer> );
       }      
