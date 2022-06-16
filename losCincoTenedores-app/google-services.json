@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "589381861756",
+    "project_id": "loscincotenedores-app",
+    "storage_bucket": "loscincotenedores-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589381861756:android:d12837b073586a115fe4f9",
+        "android_client_info": {
+          "package_name": "com.gonzalosinnott.losCincoTenedoresapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589381861756-nemv8sgpuhhgj5i1nd33s7bt5ek77g1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3fS6I_tFAPgy0JOGZ6_HgW2tg19zXf4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589381861756-nemv8sgpuhhgj5i1nd33s7bt5ek77g1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
