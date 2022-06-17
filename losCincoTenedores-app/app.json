@@ -21,11 +21,13 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#3D4544"
       },
       "package": "com.gonzalosinnott.losCincoTenedoresapp"
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"

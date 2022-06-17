@@ -39,6 +39,7 @@ import ClientManagment from './components/userManagement/clientManagement/Client
 import WaitingListManagment from './components/userManagement/waitingListManagement/WaitingListManagmentScreen';
 import ProductOrder from './components/userManagement/productOrderManagement/ProductOrderScreen';
 import Pay from './components/userManagement/payManagement/PayScreen';
+import { notificationsConfiguration } from './components/pushNotification/PushNotification';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -62,6 +63,7 @@ export default () => {
   });
 
   useEffect(() => {
+    notificationsConfiguration();
     setTimeout(async () => {
       await SplashScreen.hideAsync();
     }, 500);

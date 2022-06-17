@@ -10,6 +10,7 @@ import { addDoc, collection, onSnapshot, orderBy, query } from 'firebase/firesto
 import { auth, db } from "../../App";
 import { GiftedChat, Send } from 'react-native-gifted-chat';
 import { splitUserFromEmail } from "../../utils/utils";
+import { sendPushNotification } from "../pushNotification/PushNotification";
 
 
 const ChatScreen = () => {
@@ -34,6 +35,7 @@ const ChatScreen = () => {
   }, [])
 
   const onSend = useCallback((messages = []) => {
+    sendPushNotification( {title:"Nueva Consulta", description:"Tienes una consulta de " + auth.currentUser?.email});
     setMessages(previousMessages =>
         GiftedChat.append(previousMessages, messages))
     const {
@@ -108,9 +110,9 @@ const ChatScreen = () => {
           }}
           renderSend={props => (
               <Send {...props} >
-                <View style={{marginRight: 10, marginBottom: 5}}>
+                <View style={{marginRight: 10, marginBottom: 5}}>                
                       <Image style = {{height:35, width:35}} source={sendIcon} resizeMode={'center'}/>
-                  </View>
+                </View>
           </Send> )}
         />   
       </View> 

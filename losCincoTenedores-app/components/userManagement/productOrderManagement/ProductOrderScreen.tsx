@@ -9,6 +9,7 @@ import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import { auth, db } from "../../../App";
 import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import Toast from "react-native-simple-toast";
+import { sendPushNotification } from "../../pushNotification/PushNotification";
 
 
 const AdminSurvey = () => {
@@ -143,6 +144,7 @@ const AdminSurvey = () => {
             const ref = doc(db, "tableInfo", item.id);
             const data: any = "orderReady";
             await updateDoc(ref, { orderStatus: data });
+            sendPushNotification( {title:"PEDIDO DE MESA NUMERO" + item.tableNumber + " LISTO.", description: "El pedido esta listo para la entrega"} );
             Toast.showWithGravity(
               "PEDIDO DE LA MESA" + item.tableNumber + " REALIZADO",
               Toast.LONG,
