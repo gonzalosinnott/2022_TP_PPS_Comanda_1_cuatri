@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Splash from './components/splashScreen/SplashScreen';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Oswald_200ExtraLight, Oswald_300Light, Oswald_400Regular, Oswald_500Medium, Oswald_600SemiBold, Oswald_700Bold } from '@expo-google-fonts/oswald';
@@ -40,16 +40,38 @@ import WaitingListManagment from './components/userManagement/waitingListManagem
 import ProductOrder from './components/userManagement/productOrderManagement/ProductOrderScreen';
 import Pay from './components/userManagement/payManagement/PayScreen';
 import { notificationsConfiguration } from './components/pushNotification/PushNotification';
+import QrMenuScreen from './components/qrMenuScreen/QrMenuScreen';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
+import { Audio } from "expo-av";
+
+const audioPlayer = new Audio.Sound();
 
 SplashScreen.preventAutoHideAsync()
   .catch(console.warn);
 
 export default () => { 
+  const [sound, setSound] = useState<any>();
+
+    React.useEffect(() => {
+        return sound
+          ? () => {
+              sound.unloadAsync(); }
+          : undefined;
+      }, [sound]);
+
+      async function playSound(sound: any) {     
+        try {
+          await audioPlayer.unloadAsync()
+          await audioPlayer.loadAsync(sound);
+          await audioPlayer.playAsync();
+        } catch (err) {
+          console.warn("Couldn't Play audio", err)
+        }
+      }
 
   console.disableYellowBox = true;
 
@@ -63,6 +85,7 @@ export default () => {
   });
 
   useEffect(() => {
+    playSound(require('./assets/sounds/splash.mp3'));
     notificationsConfiguration();
     setTimeout(async () => {
       await SplashScreen.hideAsync();
@@ -99,6 +122,8 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="EmployeeSurvey" component={EmployeeSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Menu" component={MenuScreen} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="QrMenu" component={QrMenuScreen} />
+
         <Stack.Screen options =  {{ headerShown: true }}  name="ClientOrder" component={ClientOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="WaiterOrder" component={WaiterOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="ProductOrder" component={ProductOrder} />

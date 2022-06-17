@@ -1,17 +1,19 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import styles from "./StyleMenuScreen";
+import styles from "./StyleQrMenuScreen";
 import { Image, ImageBackground, Text, TouchableOpacity, View, ScrollView, Dimensions } from "react-native";
-import { returnIcon, backgroundImage, cancelIcon } from "./AssetsMenuScreen";
+import { returnIcon, backgroundImage, cancelIcon, logoIcon } from "./AssetsQrMenuScreen";
 import Modal from "react-native-modal";
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import RotatingLogo from "../rotatingLogo/RotatingLogo";
 import { auth, db, storage } from "../../App";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from 'firebase/storage'
+import { QRCode } from 'react-native-custom-qr-codes-expo';
+
 import Carousel from 'react-native-looped-carousel-improved';
 
-const MenuScreen = () => {  
+const QrMenuScreen = () => {  
 
   //CONSTANTES
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -103,7 +105,7 @@ const MenuScreen = () => {
           </TouchableOpacity>
         ),
         headerTitle: () => (
-          <Text style={styles.headerText}>MENU</Text>
+          <Text style={styles.headerText}>MENU (QR)</Text>
         ),
         headerTintColor: "transparent",
         headerBackButtonMenuEnabled: false,
@@ -122,40 +124,21 @@ const MenuScreen = () => {
         <View style={styles.body}>
         <ScrollView>
 
-            {dataDrinks.map((item: {imageUrl1: any;
+          {dataDrinks.map((item: {imageUrl1: any;
                                     imageUrl2: any; 
                                     imageUrl3: any;  
                                     name: any; 
                                     description: any; 
                                     price: any;
+                                    qString: any;
                                     id: string;}) => (               
               <View style={styles.cardStyle}>
-                <View >
-                  <Carousel
-                    delay={2000}
-                    style={{ height:200, width:200, marginTop:10, marginBottom:10 }}
-                    autoplay={false}
-                    pageInfo
-                    currentPage={0}
-                    onAnimateNextPage={p => console.log(p)}>
-                    <View style={{ height:200, width:200,}} >
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl1 }} />
-                    </View>
-                    <View style={{ height:200, width:200,}} >
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl2 }} />
-                    </View>
-                    <View style={{ height:200, width:200,}}>
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl3 }} />
-                    </View>
-                  </Carousel>
-                </View>                  
+                  <QRCode content = {item.qString} logo={logoIcon}/>
                 <View style={{ height:300}}>      
                 <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                   <View style={styles.infoContainer}>
                     <Text style={styles.tableHeaderText}>{item.name}</Text>
-                    <Text style={styles.tableHeaderText}>$ {item.price}  </Text>
                   </View>
-                  <Text style={styles.tableCellText}>{item.description}</Text>                  
                   <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                 </View>
               </View>              
@@ -167,34 +150,15 @@ const MenuScreen = () => {
                                     name: any; 
                                     description: any; 
                                     price: any;
+                                    qString: any;
                                     id: string;}) => (               
               <View style={styles.cardStyle}>
-                <View >
-                  <Carousel
-                    delay={2000}
-                    style={{ height:200, width:200, marginTop:10, marginBottom:10 }}
-                    autoplay={false}
-                    pageInfo
-                    currentPage={0}
-                    onAnimateNextPage={p => console.log(p)}>
-                    <View style={{ height:200, width:200,}} >
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl1 }} />
-                    </View>
-                    <View style={{ height:200, width:200,}} >
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl2 }} />
-                    </View>
-                    <View style={{ height:200, width:200,}}>
-                      <Image resizeMode='cover' style={styles.cardImage} source={{ uri: item.imageUrl3 }} />
-                    </View>
-                  </Carousel>
-                </View>                  
+                  <QRCode content = {item.qString} logo={logoIcon}/>
                 <View style={{ height:300}}>      
                 <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                   <View style={styles.infoContainer}>
                     <Text style={styles.tableHeaderText}>{item.name}</Text>
-                    <Text style={styles.tableHeaderText}>$ {item.price}  </Text>
                   </View>
-                  <Text style={styles.tableCellText}>{item.description}</Text>                  
                   <Text style={styles.tableHeaderText}>---------------------------------</Text>                      
                 </View>
               </View>              
@@ -213,4 +177,4 @@ const MenuScreen = () => {
   );
 };
 
-export default MenuScreen;
+export default QrMenuScreen;

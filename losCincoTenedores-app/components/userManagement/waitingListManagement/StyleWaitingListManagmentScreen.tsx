@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const win = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
@@ -15,6 +17,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'transparent',
+        width: '100%',
+        marginTop: 20,
     },
     headerIcon: {
         height: 45,
@@ -35,17 +39,16 @@ export default StyleSheet.create({
         margin: 10,
         borderRadius: 10,
         borderWidth: 2,
-        width: '90%',
-        justifyContent: 'space-between',
-        alignContent: 'center',
-        alignItems: 'center',
+        width: win.width * 0.9,
+        padding: 10,
     },
     infoContainer: {
         flexDirection: 'row', 
-        marginBottom: 5,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignContent: 'center',
         alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 5
     },
     cardImage: {
         flex: 1, 
@@ -77,13 +80,15 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     modalBody: {
-        borderColor: 'white',
-        backgroundColor: '#3D4544',
+        backgroundColor: '#DCDCE1',
+        borderColor: '#DCDCE1',
         borderWidth: 2,
         padding: 15,
         borderRadius: 25,
     },
     modalIconContainer: {
+        backgroundColor: '#DCDCE1',
+        borderColor: '#DCDCE1',
         flexDirection: 'row', 
         marginBottom: 5,
         justifyContent: 'space-between',

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -7,6 +7,8 @@ import styles from "../splashScreen/StyleSplashScreen";
 
 const SplashScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    
+
 
     setTimeout(() => {
         navigation.replace("Login");

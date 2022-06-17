@@ -18,7 +18,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'transparent',
         width: '100%',
-        marginTop: 20,
     },
     headerIcon: {
         height: 45,
@@ -28,7 +27,7 @@ export default StyleSheet.create({
     },
     headerText: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 25,
         fontFamily: 'Oswald_500Medium',
         textAlign: 'center',
         alignContent: 'center',
@@ -40,15 +39,32 @@ export default StyleSheet.create({
         borderRadius: 10,
         borderWidth: 2,
         width: win.width * 0.9,
-        padding: 10,
-    },
-    infoContainer: {
-        flexDirection: 'row', 
         justifyContent: 'space-between',
         alignContent: 'center',
         alignItems: 'center',
-        marginTop: 5,
+        height:410, 
+
+    },
+    imageContainer: {
+        flexDirection: 'row', 
+        alignContent: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
         marginBottom: 5
+    },
+    infoContainer: {
+        flexDirection: 'row', 
+        marginBottom: 5,
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        alignItems: 'center',
+
+    },
+    cardImage: {
+        flex: 1, 
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     cardIcon: {
         padding: 10,
@@ -58,14 +74,13 @@ export default StyleSheet.create({
         resizeMode: 'contain',
     },
     tableHeaderText: {
-        color: 'black',
+        color: '#3D4544',
         fontSize: 25,
         fontFamily: 'Oswald_500Medium',
-        textAlign: 'center',
     },
     tableCellText: {
         color: 'black',
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: 'Oswald_500Medium',
     },
     modalContainer: {
@@ -73,8 +88,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     modalBody: {
-        backgroundColor: '#DCDCE1',
-        borderColor: '#DCDCE1',
+        borderColor: 'white',
+        backgroundColor: '#3D4544',
         borderWidth: 2,
         padding: 15,
         borderRadius: 25,
@@ -83,7 +98,7 @@ export default StyleSheet.create({
         flexDirection: 'row', 
         marginBottom: 5,
         justifyContent: 'space-between',
-        alignContent: 'flex-start',
+        alignContent: 'center',
         alignItems: 'center',
     },
     inputField: {
@@ -107,6 +122,7 @@ export default StyleSheet.create({
     buttonLayout: {
         backgroundColor: '#A4C3B2',
         borderColor: '#A4C3B2',
+        marginTop: 20,
         margin: 5,
         width: "35%",
         height: 60,
@@ -115,32 +131,10 @@ export default StyleSheet.create({
         borderWidth: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center',
-    },
-    tableStatusButtonLayout: {
-        backgroundColor: '#A4C3B2',
-        borderColor: '#A4C3B2',
-        margin: 5,
-        width: "50%",
-        height: 60,
-        padding: 15,
-        borderRadius: 30,
-        borderWidth: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
     },
       buttonText: {
         color: 'black',
         fontSize: 15,
         fontFamily: 'Oswald_500Medium',
-    },
-    rowContainer: {
-        flexDirection: 'row', 
-        alignContent: 'center', 
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 5,
-        marginBottom: 5
     },
 });

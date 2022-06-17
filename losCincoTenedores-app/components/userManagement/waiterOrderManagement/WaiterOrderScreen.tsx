@@ -14,6 +14,7 @@ import {
   backgroundImage,
   cancelIcon,
   confirmIcon,
+  refreshIcon,
 } from "./AssetsWaiterOrderScreen";
 import Modal from "react-native-modal";
 import React, { useCallback, useLayoutEffect, useState } from "react";
@@ -51,6 +52,13 @@ const WaiterOrder = () => {
   //RETURN
   const handleReturn = () => {
     navigation.replace("ControlPanelMozo");
+  };
+
+  //REFRESH
+  const handleRefresh = () => {
+    getTables();
+    getWaitingListData();
+    toggleSpinnerAlert();
   };
 
   //REFRESH DE LA DATA
@@ -309,6 +317,11 @@ const WaiterOrder = () => {
       headerStyle: {
         backgroundColor: "rgba(61, 69, 68, 0.4);",
       },
+      headerRight: () => (
+        <TouchableOpacity onPress={handleRefresh}>
+          <Image source={refreshIcon} style={styles.headerIcon} />
+        </TouchableOpacity>
+      ),
     });
   }, []);
 

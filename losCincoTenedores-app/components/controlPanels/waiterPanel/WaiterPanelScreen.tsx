@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../waiterPanel/StyleWaiterPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, chatIcon, orderIcon } from "../waiterPanel/AssetsWaiterPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, chatIcon, orderIcon, menuIcon, qrMenuIcon } from "../waiterPanel/AssetsWaiterPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -27,10 +27,17 @@ const WaiterPanel = () => {
       navigation.replace("Chat")
     }  
 
-    //NAVIGATION
     const handleOrder= () => {
       navigation.replace("WaiterOrder")
-    }      
+    }    
+    
+    const handleMenu= () => {
+      navigation.replace("Menu")
+    } 
+
+    const handleQrMenu= () => {
+      navigation.replace("QrMenu")
+    } 
     
     //HEADER
     useLayoutEffect(() => {
@@ -73,6 +80,20 @@ const WaiterPanel = () => {
                       <Text style={styles.buttonText}>VER ESTADO DE LAS MESAS</Text>              
                     </View>
                   </TouchableOpacity>
+
+                  <TouchableOpacity onPress={handleMenu} style={styles.buttonLayout}>
+                  <View style={styles.RowContainerButtonLayout}>
+                    <Image source={menuIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>MENU</Text>              
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleQrMenu} style={styles.buttonLayout}>
+                  <View style={styles.RowContainerButtonLayout}>
+                    <Image source={qrMenuIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>MENU (QR)</Text>              
+                  </View>
+                </TouchableOpacity>
                 
                 </View>                
             </ImageBackground>           
