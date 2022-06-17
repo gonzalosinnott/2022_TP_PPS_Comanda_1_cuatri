@@ -1,8 +1,8 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import styles from "./StyleOldEmployeeSurveyScreen";
+import styles from "./StyleOldAdminSurveyScreen";
 import { Image, ImageBackground, Text, TouchableOpacity, View, ScrollView, Dimensions } from "react-native";
-import { returnIcon, backgroundImage, cancelIcon } from "./AssetsOldEmployeeSurveyScreen";
+import { returnIcon, backgroundImage, cancelIcon } from "./AssetsOldAdminSurveyScreen";
 import Modal from "react-native-modal";
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
@@ -19,7 +19,7 @@ import { auth, db } from "../../../App";
 import { Badge } from "react-native-paper";
 
 
-const OldEmployeeSurvey = () => {
+const OldAdminSurvey = () => {
 
   //CONSTANTES
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -47,7 +47,7 @@ const OldEmployeeSurvey = () => {
   
 
   const paymentMethodsBarChartData = {
-    labels: ["Agradable", "Regular", "Malo"],
+    labels: ["Buena", "Regular", "Mala"],
     datasets: [
       {
         data: [paymentMethodEfectivo, paymentMethodDebito, paymentMethodCredito]
@@ -57,21 +57,21 @@ const OldEmployeeSurvey = () => {
 
   const foodQualityPieChartData = [
     {
-      name: "Limpio",
+      name: "Buena",
       amount: foodQualityBuena,
       color: "green",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
-      name: "Normal",
+      name: "Regular",
       amount: foodQualityRegular,
       color: "yellow",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
-      name: "Sucio",
+      name: "Mala",
       amount: foodQualityMala,
       color: "red",
       legendFontColor: "#7F7F7F",
@@ -81,42 +81,42 @@ const OldEmployeeSurvey = () => {
 
   const clientsOpinionsProggressRingData = [
     {
-      name: "Elementos necesarios de trabajo",
+      name: "Falta mucho",
       amount: clean,
       color: "green",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Faltan elementos de trabajo",
+      name: "Falta poco",
       amount: dirty,
       color: "yellow",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Lugar en condiciones",
+      name: "Amable con los pares",
       amount: quickDelivery,
       color: "red",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "El lugar no esta en condiciones",
+      name: "No es amable con los pares",
       amount: slowDelivery,
       color: "blue",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Hay materia prima",
+      name: "Cumple con sus tareas",
       amount: happy,
       color: "brown",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Falta materia prima",
+      name: "No cumple con sus tareas",
       amount: sad,
       color: "orange",
       legendFontColor: "#7F7F7F",
@@ -126,22 +126,8 @@ const OldEmployeeSurvey = () => {
 
   //RETURN
   const handleReturn = () => {
-    if(auth.currentUser?.email === "cincotenedoresmetre@gmail.com")
-    {
-      navigation.replace("ControlPanelMetre");
-    }
-    if(auth.currentUser?.email === "cincotenedoresmozo@gmail.com")
-    {
-      navigation.replace("ControlPanelMozo");
-    }
-    if(auth.currentUser?.email === "cincotenedorescocina@gmail.com")
-    {
-      navigation.replace("ControlPanelCocina");
-    }
-    if(auth.currentUser?.email === "cincotenedoresbar@gmail.com")
-    {
-      navigation.replace("ControlPanelBar");
-    }
+    navigation.replace("ControlPanelPropietario");
+    
   };
 
   //TOOGLE SPINNER
@@ -169,7 +155,7 @@ const OldEmployeeSurvey = () => {
   const getData = async () => {
     setData([]);    
     try {
-      const q = query(collection(db, "employeeSurvey"));
+      const q = query(collection(db, "adminSurvey"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const res: any = { ...doc.data(), id: doc.id };
@@ -208,16 +194,16 @@ const OldEmployeeSurvey = () => {
       countWaiterEvaulations++;
       sumWaiterEvaluations += item.workSatisfaction;
 
-      if(item.placeCondition == "Limpio"){
+      if(item.placeCondition == "Buena"){
         setFoodQualityBuena(foodQualityBuena + 1);
       }
-      if(item.placeCondition == "normal"){
+      if(item.placeCondition == "Regular"){
         setFoodQualityMala(foodQualityMala + 1);
       }
-      if(item.placeCondition == "sucio"){
+      if(item.placeCondition == "Mala"){
         setFoodQualityRegular(foodQualityRegular + 1);
       }
-      if(item.workEnviroment == "Agradable"){
+      if(item.workEnviroment == "Bueno"){
         setPaymentMethodEfectivo(paymentMethodEfectivo + 1);
       }
       if(item.workEnviroment == "Regular"){
@@ -256,7 +242,7 @@ const OldEmployeeSurvey = () => {
       <View style={styles.body}>
         
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>CONDICIONES EDILICIAS</Text>
+          <Text style={styles.inputText}>PREDISPOSICIÓN</Text>
         </View>
 
         <PieChart
@@ -272,7 +258,7 @@ const OldEmployeeSurvey = () => {
         />
 
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>CLIMA LABORAL</Text>
+          <Text style={styles.inputText}>ACTITUD CON SUS PARES</Text>
         </View>
 
         <BarChart
@@ -286,7 +272,7 @@ const OldEmployeeSurvey = () => {
 
 
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>PROMEDIO SATISFACCION LABORAL</Text>
+          <Text style={styles.inputText}>PROMEDIO PRESENTISMO</Text>
           <Text style={styles.inputText}>{Math.round(averageWaiterEvaluation)} %</Text>
         </View>
 
@@ -320,4 +306,4 @@ const OldEmployeeSurvey = () => {
   );
 };
 
-export default OldEmployeeSurvey;
+export default OldAdminSurvey;

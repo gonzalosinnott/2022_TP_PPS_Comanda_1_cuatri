@@ -48,6 +48,9 @@ export const storage = getStorage(app);
 export const db = getFirestore(app);
 import { Audio } from "expo-av";
 import OldEmployeeSurvey from './components/surveys/oldEmployeeSurvey/OldEmployeeSurveyScreen';
+import OldAdminSurvey from './components/surveys/oldAdminSurvey/OldAdminSurveyScreen';
+import AdminSurveyManagment from './components/userManagement/adminSurveyManagement/AdminSurveyManagmentScreen';
+import NewAdminSurvey from './components/surveys/adminSurvey/AdminSurveyScreen';
 
 const audioPlayer = new Audio.Sound();
 
@@ -119,13 +122,14 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="WaitingListManagment" component={WaitingListManagment} />
         <Stack.Screen options =  {{ headerShown: true }}  name="NewClientSurvey" component={NewClientSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="OldClientSurvey" component={OldClientSurvey} />
-        <Stack.Screen options =  {{ headerShown: true }}  name="AdminSurvey" component={AdminSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="EmployeeSurvey" component={EmployeeSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="OldEmployeeSurvey" component={OldEmployeeSurvey} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="AdminSurveyManagment" component={AdminSurveyManagment} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="OldAdminSurvey" component={OldAdminSurvey} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="NewAdminSurvey" component={NewAdminSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Menu" component={MenuScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="QrMenu" component={QrMenuScreen} />
-
         <Stack.Screen options =  {{ headerShown: true }}  name="ClientOrder" component={ClientOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="WaiterOrder" component={WaiterOrder} />
         <Stack.Screen options =  {{ headerShown: true }}  name="ProductOrder" component={ProductOrder} />

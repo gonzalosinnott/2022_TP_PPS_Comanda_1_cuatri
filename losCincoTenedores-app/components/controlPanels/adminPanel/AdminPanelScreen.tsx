@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../adminPanel/StyleAdminPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, adminIcon, employeeIcon, tableIcon, clientManagmentIcon } from "../adminPanel/AssetsAdminPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, adminIcon, employeeIcon, tableIcon, clientManagmentIcon, surveyResultIcon, surveyIcon } from "../adminPanel/AssetsAdminPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -37,6 +37,14 @@ const AdminPanel = () => {
 
     const handleClientManagment = () => {
       navigation.replace("ClientManagment")
+    } 
+
+    const handleEmployeesList = () => {
+      navigation.replace("AdminSurveyManagment")
+    } 
+
+    const handleSurveyResults = () => {
+      navigation.replace("OldAdminSurvey")
     } 
     
     //HEADER
@@ -92,7 +100,21 @@ const AdminPanel = () => {
                       <Image source={clientManagmentIcon} style={styles.buttonImage} />
                       <Text style={styles.buttonText}>APROBACIÓN DE NUEVOS CLIENTES</Text>              
                     </View>
-                  </TouchableOpacity>     
+                  </TouchableOpacity>  
+
+                  <TouchableOpacity onPress={handleEmployeesList} style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={surveyIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>EVALUACIÓN DE EMPLEADOS</Text>              
+                  </View>
+                </TouchableOpacity>   
+
+                <TouchableOpacity onPress={handleSurveyResults} style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={surveyResultIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>VER VALUACIONES PREVIAS</Text>              
+                  </View>
+                </TouchableOpacity>
 
                 </View>                
             </ImageBackground>           

@@ -204,6 +204,7 @@ const EmployeeRegistration = () => {
         employeeType: values.employeeType,
         image: fileRef.fullPath,
         creationDate: new Date(),
+        survey: "no"
       });
       Toast.showWithGravity(
         "Usuario creado exitosamente",
