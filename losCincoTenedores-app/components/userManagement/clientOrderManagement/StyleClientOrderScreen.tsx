@@ -45,6 +45,19 @@ export default StyleSheet.create({
         height:490, 
 
     },
+    qrCardStyle: {
+        backgroundColor: '#DCDCE1',
+        borderColor: '#DCDCE1',
+        margin: 10,
+        borderRadius: 10,
+        borderWidth: 2,
+        width: win.width * 0.8,
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        alignItems: 'center',
+        height:490, 
+
+    },
     imageContainer: {
         flexDirection: 'row', 
         alignContent: 'center', 
@@ -89,8 +102,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     modalBody: {
-        borderColor: 'white',
-        backgroundColor: '#3D4544',
+        borderColor: '#DCDCE1',
+        backgroundColor: '#DCDCE1',
         borderWidth: 2,
         padding: 15,
         borderRadius: 25,
@@ -132,6 +145,19 @@ export default StyleSheet.create({
         alignContent: 'center',
         textAlign: 'center',
     },
+    qrButtonLayout: {
+        backgroundColor: '#A4C3B2',
+        borderColor: '#A4C3B2',
+        margin: 5,
+        width: "100%",
+        height: "10%",
+        padding: 15,
+        borderRadius: 30,
+        borderWidth: 0,
+        alignSelf: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
+    },
       buttonText: {
         color: 'black',
         fontSize: 15,
@@ -140,7 +166,7 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: 'row', 
         alignContent: 'center', 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 5,
         marginBottom: 5
@@ -172,6 +198,14 @@ export default StyleSheet.create({
     confirmIcon: {
         height: 100,
         width: 100,
+        alignSelf: 'center',
+        alignContent: 'center',
+        resizeMode: 'contain',
+        marginRight: 10,
+    },
+    qrIcon: {
+        height: 50,
+        width: 50,
         alignSelf: 'center',
         alignContent: 'center',
         resizeMode: 'contain',

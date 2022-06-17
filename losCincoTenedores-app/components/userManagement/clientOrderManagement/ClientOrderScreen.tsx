@@ -9,6 +9,7 @@ import {
   View,
   ScrollView,
   Dimensions,
+  StyleSheet,
 } from "react-native";
 import {
   returnIcon,
@@ -17,9 +18,10 @@ import {
   minusIcon,
   plusIcon,
   confirmIcon,
+  qrIcon,
 } from "./AssetsClientOrderScreen";
 import Modal from "react-native-modal";
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import { auth, db, storage } from "../../../App";
 import {
@@ -40,6 +42,8 @@ import {
 import { getDownloadURL, ref } from "firebase/storage";
 import Carousel from "react-native-looped-carousel-improved";
 import Toast from "react-native-simple-toast";
+import { Camera } from "expo-camera";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
 const ClientOrder = () => {
   //CONSTANTES
@@ -58,7 +62,18 @@ const ClientOrder = () => {
   const [isModalConfirmOrderVisible, setModalConfirmOrderVisible] = useState(false);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [tableId, setTableId] = useState("");
-
+  const [scanned, setScanned] = useState(false);
+  const [openQR, setOpenQR] = useState(false);
+  const [qrName, setQrName] = useState("");
+  const [qrDescription, setQrDescription] = useState("");
+  const [qrElaborationTime, setQrElaborationTime] = useState(0);
+  const [qrPrice, setQrPrice] = useState(0);
+  const [qrType, setQrType] = useState("");
+  const [qrImage1, setQrImage1] = useState("");
+  const [qrImage2, setQrImage2] = useState("");
+  const [qrImage3, setQrImage3] = useState("");
+  const [qrAmount, setQrAmount] = useState(0);
+  const [isModalQRVisible, setModalQRVisible] = useState(false);
 
   //RETURN
   const handleReturn = () => {
@@ -74,7 +89,62 @@ const ClientOrder = () => {
       toggleSpinnerAlert();
     }, [])
   );
+  
+  //PERMISOS CAMARA
+  useEffect(() => {
+    (async () => {
+      await Camera.requestCameraPermissionsAsync();
+      await BarCodeScanner.requestPermissionsAsync();
+    })();
+  }, []);
 
+  //MANEJADOR DEL QR Y CAMARA
+  const handleOpenQR = () => {
+    setScanned(false);
+    setOpenQR(true);
+  };
+
+  //COMPLETADO DEL FORM A PARTIR DEL QR
+  const handleBarCodeScanned = ({ data }) => {
+    setScanned(true);
+    setOpenQR(false);
+    const dataSplit = data.split("@");
+    const qrType = dataSplit[0];
+    const qrName = dataSplit[1];
+    const qrDescription = dataSplit[2];
+    const qrElaborationTime = dataSplit[3];
+    const qrPrice = dataSplit[4];
+    const qrProductType = dataSplit[5];
+    const qrImage1 = dataSplit[6];
+    const qrImage2 = dataSplit[7];
+    const qrImage3 = dataSplit[8];
+
+     
+
+
+    if (qrType === "producto") {
+      setQrName(qrName);
+      setQrDescription(qrDescription);
+      setQrElaborationTime(qrElaborationTime);
+      setQrPrice(qrPrice);
+      setQrType(qrProductType);
+      setQrImage1(qrImage1);
+      setQrImage2(qrImage2);
+      setQrImage3(qrImage3);
+
+      toogleQRModal();
+
+
+    } else {
+      Toast.showWithGravity(
+        "NO ES UN QR DE PLATO / BEBIDA",
+        Toast.LONG,
+        Toast.CENTER
+      );
+    }
+  };
+
+ 
   //SETEO INICIAL DE DATA Y PARA LOS RETURN
   const checkClientStatus = async () => {
     const q = query(
@@ -223,6 +293,10 @@ const ClientOrder = () => {
     });
   };
 
+  const addAmountQR = () => {
+    setQrAmount(qrAmount+1);
+  };
+
   const removeAmountDrink = (id: any) => {
     setDataDrinks((arr: any) => {
       const newArr = arr.map((item: any) => {
@@ -253,9 +327,12 @@ const ClientOrder = () => {
     });
   };
 
+  const removeAmountQR = () => {
+    setQrAmount(qrAmount-1);
+  }
+
   //MANEJADOR PEDIDO
   const addFoodOrder = async (
-    id: any,
     name,
     amount,
     description,
@@ -344,6 +421,14 @@ const ClientOrder = () => {
     setModalConfirmOrderVisible(!isModalConfirmOrderVisible);
   };
 
+  const toogleQRModal = () => {
+    getDrinks();
+    getFood();
+    checkClientStatus();
+    toggleSpinnerAlert();
+    setModalQRVisible(!isModalQRVisible);
+  }
+
   
   //SACAR PEDIDO DE LA ORDEN
   const deleteOrder = async (id: any) => {
@@ -398,7 +483,7 @@ const ClientOrder = () => {
     });
   }, []);
 
-  return (
+  return !openQR ? (
     <View style={styles.container}>
       {loading}
       <ImageBackground
@@ -419,6 +504,12 @@ const ClientOrder = () => {
             </View>
             <TouchableOpacity onPress={() => toggleModalOrder()}>
               <Image source={confirmIcon} style={styles.confirmIcon} />
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.qrButtonLayout}>
+            <TouchableOpacity onPress={handleOpenQR}>
+                <Image source={qrIcon} style={styles.qrIcon} />
             </TouchableOpacity>
           </View>
 
@@ -503,7 +594,6 @@ const ClientOrder = () => {
                       <TouchableOpacity
                         onPress={() =>
                           addFoodOrder(
-                            item.id,
                             item.name,
                             item.amount,
                             item.description,
@@ -604,7 +694,6 @@ const ClientOrder = () => {
                       <TouchableOpacity
                         onPress={() =>
                           addFoodOrder(
-                            item.id,
                             item.name,
                             item.amount,
                             item.description,
@@ -670,8 +759,108 @@ const ClientOrder = () => {
             </View>
           </View>
         </Modal>
+
+        <Modal backdropOpacity={0.5} isVisible={isModalQRVisible}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalBody}>
+              <View style={styles.rowContainer}>
+                <Text style={styles.tableHeaderText}>ITEM</Text> 
+                <TouchableOpacity onPress={toogleQRModal}>
+                  <Image source={cancelIcon} style={styles.cardIcon} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.qrCardStyle}>
+                  <View>
+                    <Carousel
+                      delay={2000}
+                      style={{
+                        height: 200,
+                        width: 200,
+                        marginTop: 10,
+                        marginBottom: 10,
+                      }}
+                      autoplay={false}
+                      pageInfo
+                      currentPage={0}
+                      onAnimateNextPage={(p) => console.log(p)}
+                    >
+                      <View style={{ height: 200, width: 200 }}>
+                        <Image
+                          resizeMode="cover"
+                          style={styles.cardImage}
+                          source={{ uri: qrImage1 }}
+                        />
+                      </View>
+                      <View style={{ height: 200, width: 200 }}>
+                        <Image
+                          resizeMode="cover"
+                          style={styles.cardImage}
+                          source={{ uri: qrImage2 }}
+                        />
+                      </View>
+                      <View style={{ height: 200, width: 200 }}>
+                        <Image
+                          resizeMode="cover"
+                          style={styles.cardImage}
+                          source={{ uri: qrImage3 }}
+                        />
+                      </View>
+                    </Carousel>
+                  </View>
+                  <View style={{ height: 300 }}>
+  
+                    <View style={styles.infoContainer}>
+                      <Text style={styles.tableHeaderText}>{qrName}</Text>
+                      <Text style={styles.tableHeaderText}>
+                        $ {qrPrice}
+                      </Text>
+                    </View>
+                    <Text style={styles.tableCellText}>{qrDescription}</Text>
+
+                    <View style={styles.rowContainer}>
+                      <TouchableOpacity
+                        onPress={() => removeAmountQR()}
+                      >
+                        <Image source={minusIcon} style={styles.headerIcon} />
+                      </TouchableOpacity>
+                      <Text style={styles.amountText}>{qrAmount}</Text>
+                      <TouchableOpacity onPress={() => addAmountQR()}>
+                        <Image source={plusIcon} style={styles.headerIcon} />
+                      </TouchableOpacity>
+                    </View>
+
+                      <TouchableOpacity
+                        onPress={() =>
+                          addFoodOrder(
+                            qrName,
+                            qrAmount,
+                            qrDescription,
+                            qrPrice,
+                            qrElaborationTime,
+                            qrType
+                          )
+                        }
+                      >
+
+                        <View style={styles.orderButtonLayout}>
+                          <Text style={styles.amountText}>
+                            AGREGAR AL PEDIDO
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                  </View>
+                </View>          
+            </View>
+          </View>
+        </Modal>
       </ImageBackground>
     </View>
+  ) : (
+    <BarCodeScanner
+      onBarCodeScanned={scanned && openQR ? undefined : handleBarCodeScanned}
+      style={StyleSheet.absoluteFillObject}
+    />
   );
 };
 

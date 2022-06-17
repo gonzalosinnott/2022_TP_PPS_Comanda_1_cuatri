@@ -4,5 +4,6 @@ export const confirmIcon = require("../../../assets/common/confirm.png");
 export const cancelIcon = require("../../../assets/common/cancel.png");
 export const plusIcon = require("../../../assets/common/plus.png");
 export const minusIcon = require("../../../assets/common/minus.png");
+export const qrIcon = require("../../../assets/common/qr.png");
 
 
