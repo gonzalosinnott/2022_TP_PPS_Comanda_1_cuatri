@@ -18,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import { RadioButton } from 'react-native-paper';
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import { cameraIcon, qrIcon } from "./AssetsClientRegistrationScreen";
+import { sendPushNotification } from "../../pushNotification/PushNotification";
 
 type NewUser = {
   apellido:string;
@@ -200,6 +201,7 @@ const ClientRegistration = () => {
           Toast.CENTER);
         reset();
         setImage("");
+        sendPushNotification( {title:"NUEVO CLIENTE REGISTRADO", description: "Hay un nuevo cliente esperando ser aprobado"} );
         //VUELTA AL CONTROL PANEL O AL LOGIN
         handleReturn();
       } catch (error:any) {

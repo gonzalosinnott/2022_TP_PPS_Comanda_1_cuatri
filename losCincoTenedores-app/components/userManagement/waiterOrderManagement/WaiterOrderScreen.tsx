@@ -29,6 +29,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../App";
 import Toast from "react-native-simple-toast";
+import { sendPushNotification } from "../../pushNotification/PushNotification";
 
 const WaiterOrder = () => {
   //CONSTANTES
@@ -235,6 +236,7 @@ const WaiterOrder = () => {
             const ref = doc(db, "tableInfo", item.id);
             const data: any = "orderInProgress";
             await updateDoc(ref, { orderStatus: data });
+            sendPushNotification( {title:"PEDIDO PENDIENTE DE ELABORACIÓN", description: "Hay pedidos pendientes de elaboración"} );
             Toast.showWithGravity(
               "Pedido Enviado a Elaboración",
               Toast.LONG,

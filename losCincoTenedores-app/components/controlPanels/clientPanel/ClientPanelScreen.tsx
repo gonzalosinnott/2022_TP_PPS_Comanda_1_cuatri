@@ -30,49 +30,9 @@ import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import Modal from "react-native-modal";
 import * as Notifications from "expo-notifications";
 import { addNotificationReceivedListener, scheduleNotificationAsync } from "expo-notifications";
-
-/* EXPO PUSH NOTIFICATION */
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-
-  if (existingStatus !== "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
-  if (finalStatus !== "granted") {
-    alert("Failed to get push token for push notification!");
-    return;
-  }
-  token = (await Notifications.getExpoPushTokenAsync()).data;
-  console.log(token);
-
-  return token;
-}
-//PUSH NOTI
-useEffect(() => {
-  registerForPushNotificationsAsync();
-}, []);
+import { sendPushNotification } from "../../pushNotification/PushNotification";
 
 const ClientPanel = () => {
-  const createSender = async () => {
-    const token = await registerForPushNotificationsAsync();
-    //function for sending push notifications
-    const sendPushNotification = async (message: any) => {
-      scheduleNotificationAsync({
-        content: {
-          title: "Tienes un nuevo mensaje",
-          body: message,
-        },
-        trigger: {
-          seconds: 15,
-        },
-      });
-    };
-    return sendPushNotification;
-  };
 
   //CONSTANTES
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -88,34 +48,7 @@ const ClientPanel = () => {
       checkClientStatus();
     }, [])
   );
-
-useEffect(() => {
-  //create send function promise
-  const createSenderPromise = createSender();
-  //add notification listener to trigger events when notification is sent
-  addNotificationReceivedListener((notification) => {
-    console.log('Notification incoming');
-    console.log(notification);
-  });
-  //add function to state when send promise is resolved
-  createSenderPromise.then((sendFunc) => {
-    console.log(typeof sendFunc);
-    setSender({sendFunc});
-  });
-}, []);
-
-// useEffect that will send push alert
-useEffect(() => {
-  //if the send function exists, send a notification
-  if (sender && sender.sendFunc instanceof Function) {
-    console.log(sender);
-    sender.sendFunc("Hola");
-  }
-}, [sender]};
-
-
-
-
+  
 
   const checkClientStatus = async () => {
     const query1 = query(
@@ -138,6 +71,7 @@ useEffect(() => {
       return;
     }
   };
+  
 
   //LOGOUT
   const handleLogout = () => {
@@ -166,6 +100,7 @@ useEffect(() => {
 
     if (qrType === "ingresoLocal") {
       addToWaitingList();
+      sendPushNotification( {title:"CLIENTE ESPERANDO MESA", description: "Hay un nuevo cliente en la lista de espera"} );
     } else {
       Toast.showWithGravity(
         "QR Eroneo. Debe ingresar a la lista de espera",
@@ -173,8 +108,6 @@ useEffect(() => {
         Toast.CENTER
       );
     }
-    //Si es entrada al local mandar push notification
-    //al metre avisandole que alguien entro(CECI)
   };
 
   //RUTEO A LA LISTA DE ESPERA
@@ -249,7 +182,7 @@ useEffect(() => {
           <View style={styles.buttonLayout}>
             <Text style={styles.buttonText}>ESCANEE EL CODIGO QR</Text>
             <Text style={styles.buttonText}>PARA INGRESAR AL LOCAL</Text>
-          </View>
+          </View>       
         </View>
 
         <View>

@@ -1,136 +1,93 @@
-import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform, Linking, Alert } from "react-native";
-import * as Permissions from "expo-permissions";
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
-
-export default function App() {
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
-      });
-
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
-
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-around",
-      }}
-    >
-      <Text>Your expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>
-          Title: {notification && notification.request.content.title}{" "}
-        </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>
-          Data:{" "}
-          {notification && JSON.stringify(notification.request.content.data)}
-        </Text>
-      </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-    </View>
-  );
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
+import { Platform } from 'react-native';
+import { db } from '../../App';
+interface Notification{
+    title:string;
+    description:string;
 }
 
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-async function sendPushNotification(expoPushToken) {
-  const message = {
-    to: expoPushToken,
-    sound: "default",
-    title: "Notificacion",
-    body: "Holis, soy una notificacion",
-    data: { someData: "goes here" },
-  };
+let tokens:string[]=[];
 
-  await fetch("https://exp.host/--/api/v2/push/send", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Accept-encoding": "gzip, deflate",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(message),
-  });
+export const notificationsConfiguration = () => {
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
+    registerForPushNotificationsAsync();
+    getTokens();   
 }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+export const sendPushNotification = async ({title, description}:Notification) =>  {
+    console.log((await Notifications.getExpoPushTokenAsync()).data.toString());
+    try {
+        tokens.map(async token => {
+          if(token != (await Notifications.getExpoPushTokenAsync()).data.toString()){
+            const message = {
+              to: token,
+              title: title,
+              body: description,
+              sound: "default"
+            };
+            await fetch('https://exp.host/--/api/v2/push/send', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(message),
+            });
+          }
+        }           
+        )
+    } catch (error) {
+      console.log(error)              
     }
-    if (finalStatus !== "granted") {
-      Alert.alert(
-        "No Notification Permission",
-        "please goto setting and on notification permission manual",
-        [
-          { text: "cancel", onPress: () => console.log("cancel") },
-          { text: "Allow", onPress: () => Linking.openURL("app-settings:") },
-        ],
-        { cancelable: false }
-      );
-      alert("Failed to get push token for push notification!");
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert("Must use physical device for Push Notifications");
-  }
+}
 
-  if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-      
+const getTokens = async () => {
+    const q = query(collection(db, "pushTokens"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        tokens.push(doc.data().token)
     });
-  }
-
-  return token;
+    console.log(tokens);
 }
+
+const registerForPushNotificationsAsync = async () => {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+      const collectionRef = collection(db, "pushTokens");
+            await setDoc(doc(collectionRef, token), {
+                token,
+                creationDate: new Date(),
+            });
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+        lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
+        bypassDnd: true,
+      });
+    }
+};
