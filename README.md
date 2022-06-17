@@ -80,7 +80,11 @@ SINNOTT SEGURA GONZALO
 
 <img src="Documentos/screens/comunesEmpleados/encuesta.jpeg" width="245"/> <img src="Documentos/screens/comunesEmpleados/resultadoEncuesta.jpeg" width="245"/> 
 
+#### MODELOS DE MAILS
+<img src="Documentos/mail1.jpeg" width="245"/> <img src="Documentos/mail2.jpeg" width="245"/>
 
+#### MODELO de notificaciones
+<img src="Documentos/notificacion1.jpeg" width="245"/> <img src="Documentos/notificacion2.jpeg" width="245"/>
 
 #### QR INGRESO AL LOCAL
 
@@ -99,6 +103,15 @@ SINNOTT SEGURA GONZALO
 <img src="Documentos/propina10.png" width="300"/><img src="Documentos/propina15.png" width="300"/>
 
 <img src="Documentos/propina20.png" width="300"/>
+
+# ESQUEMA DE RESPONSABILIDADES POR USUARIO:
+<img src="Documentos/responsabilidades.jpg" width="300"/>
+
+# FLUJO DE TAREAS:
+<img src="Documentos/flujoDeTareas.jpg" width="300"/>
+
+
+# DISTRIBUCIÓN SEMANAL DE TAREAS:
 
 ## CINCO TENEDORES APP - SEMANA 1 (21/05 AL 27/05):
 | # | Tarea | Responsable | Estado | Rama |
@@ -145,7 +158,7 @@ SINNOTT SEGURA GONZALO
 | :------: | :------: | :------: | :------: | :------: |
 
 
-## CINCO TENEDORES APP - DISTRIBUCION DE TAREAS:
+## LISTADO TOTAL DE TAREAS:
 
 | # | Tarea | Responsable | Estado | Rama |
 | :------: | :------: | :------: | :------: | :------: |
@@ -165,25 +178,25 @@ SINNOTT SEGURA GONZALO
 | 08 | Qr de propina  | CECILIA | Terminado | Rama qrPropina |
 | ENCUESTAS                     
 | 09 | Encuesta cliente | GONZALO | Terminado | Rama encuestaClientes |
-| 10 | Encuesta Empleado | PEDRO | - | Rama encuestaEmpleado |
-| 11 | Encuesta supervisor | CECILIA | - | Rama encuestaSupervisor |
+| 10 | Encuesta Empleado | PEDRO | Terminado | Rama encuestaEmpleado |
+| 11 | Encuesta supervisor | CECILIA | Terminado | Rama encuestaSupervisor |
 | GESTION 
 | 12 | Agregar un nuevo cliente registrado  | GONZALO | Terminado | Rama altaCliente |
 | 13 | Ingresar al local | GONZALO | Terminado | Rama ingresoLocal |
-| 14 | Realizar pedidos | PEDRO | - | Rama altaPedido | 
-| 15 | Confirmar pedidos | CECILIA | - | Rama confirmacionPedido | 
-| 16 | Generar reservas agendadas | PEDRO | - | Rama reservas |
+| 14 | Realizar pedidos | PEDRO | Terminado | Rama altaPedido | 
+| 15 | Confirmar pedidos | CECILIA | Terminado | Rama confirmacionPedido | 
+| 16 | Generar reservas agendadas | - | - | - |
 | PUSH NOTIFICATION
-| 17 | Agregar cliente nuevo | GONZALO | En Proceso | Rama altaClientePush |
-| 18 | Ingresó al local | CECILIA | - | Rama ingresoLocalPush |
-| 19 | Consultar al mozo | CECILIA | - | Rama consultaMozoPush |
-| 20 | Confirmar pedido (mozo) | PEDRO | - | Rama confirmacionPedidoPush |
-| 21 | Confirmar pedido (bar/cocina) | PEDRO | - | Rama confirmacionPedidoPush |
-| 22 | Generar reservas agendadas / Delivery | GONZALO | - | Rama reservaPush |
+| 17 | Agregar cliente nuevo | GONZALO | Terminado | Rama pushNotification |
+| 18 | Ingresó al local | CECILIA | Terminado | Rama pushNotification |
+| 19 | Consultar al mozo | CECILIA | Terminado | Rama pushNotification |
+| 20 | Confirmar pedido (mozo) | PEDRO | Terminado | Rama pushNotification |
+| 21 | Confirmar pedido (bar/cocina) | PEDRO | Terminado | Rama pushNotification |
+| 22 | Generar reservas agendadas / Delivery | - | - | - |
 | DELIVERY
-| 23 | Realizar pedido con GPS o dirección | CECILIA / PEDRO | - | Rama altaPedido |
-| 24 | Mapa de ruta hasta el domicilio de entrega | GONZALO | - | Rama rutaPedido |
+| 23 | Realizar pedido con GPS o dirección | - | - | - |
+| 24 | Mapa de ruta hasta el domicilio de entrega | - | - | - |
 | JUEGOS
-| 25 | Juego para un 10% de descuento | GONZALO | - | Rama juego10 |
-| 26 | Juego para un 15% de descuento | CECILIA | - | Rama juego15 |
-| 27 | Juego para un 20% de descuento | PEDRO | - | Rama juego20 |
+| 25 | Juego para un 10% de descuento | - | - | - |
+| 26 | Juego para un 15% de descuento | - | - | - |
+| 27 | Juego para un 20% de descuento | - | - | - |
