@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../metrePanel/StyleMetrePanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, clientIcon, waitingListIcon } from "../metrePanel/AssetsMetrePanelScreen";
+import { userIcon, backgroundImage, logoutIcon, clientIcon, waitingListIcon, surveyIcon, surveyResultIcon } from "../metrePanel/AssetsMetrePanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -30,6 +30,16 @@ const MetrePanel = () => {
     const handleClientEntry = () => {
       navigation.replace("WaitingListManagment")
     }
+
+    //NAVIGATION
+    const handleSurvey= () => {
+      navigation.replace("EmployeeSurvey")
+    }
+
+    //NAVIGATION
+    const handleOldEmployeeSurvey= () => {
+      navigation.replace("OldEmployeeSurvey")
+      }  
     
     //HEADER
     useLayoutEffect(() => {
@@ -72,6 +82,20 @@ const MetrePanel = () => {
                       <Text style={styles.buttonText}>LISTA DE ESPERA</Text>              
                     </View>
                   </TouchableOpacity>
+
+                  <TouchableOpacity onPress={handleSurvey} style={styles.buttonLayout}>
+                  <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'flex-start', }}>
+                    <Image source={surveyIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>RELEVAMIENTO LUGAR DE TRABAJO</Text>              
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleOldEmployeeSurvey} style={styles.buttonLayout}>
+                <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'flex-start', }}>
+                    <Image source={surveyResultIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>VER ENCUESTAS DE OTROS EMPLEADOS</Text>              
+                  </View>
+                </TouchableOpacity>
                 
                 </View>                
             </ImageBackground>           

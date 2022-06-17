@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import styles from "../chefPanel/StyleChefPanelScreen";
 import { ImageBackground, TouchableOpacity, View, Image, Text } from "react-native";
-import { userIcon, backgroundImage, logoutIcon, productIcon, ordersIcon } from "../chefPanel/AssetsChefPanelScreen";
+import { userIcon, backgroundImage, logoutIcon, productIcon, ordersIcon, surveyIcon, surveyResultIcon } from "../chefPanel/AssetsChefPanelScreen";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { auth } from "../../../App";
@@ -30,6 +30,15 @@ const ChefPanel = () => {
     const handleOrders = () => {
       navigation.replace("ProductOrder")
     } 
+
+    const handleSurvey= () => {
+      navigation.replace("EmployeeSurvey")
+    }
+
+    //NAVIGATION
+    const handleOldEmployeeSurvey= () => {
+      navigation.replace("OldEmployeeSurvey")
+      }  
     
     //HEADER
     useLayoutEffect(() => {
@@ -70,6 +79,20 @@ const ChefPanel = () => {
                   <View style={styles.registerButtonLayout}>
                     <Image source={ordersIcon} style={styles.buttonImage} />
                     <Text style={styles.buttonText}>VER PEDIDOS PENDIENTES</Text>              
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleSurvey} style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={surveyIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>RELEVAMIENTO LUGAR DE TRABAJO</Text>              
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleOldEmployeeSurvey} style={styles.buttonLayout}>
+                  <View style={styles.registerButtonLayout}>
+                    <Image source={surveyResultIcon} style={styles.buttonImage} />
+                    <Text style={styles.buttonText}>VER ENCUESTAS DE OTROS EMPLEADOS</Text>              
                   </View>
                 </TouchableOpacity>
                 

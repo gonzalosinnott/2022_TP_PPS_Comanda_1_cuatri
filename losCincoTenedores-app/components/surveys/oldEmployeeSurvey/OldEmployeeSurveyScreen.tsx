@@ -1,8 +1,8 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import styles from "./StyleOldClientSurveyScreen";
+import styles from "./StyleOldEmployeeSurveyScreen";
 import { Image, ImageBackground, Text, TouchableOpacity, View, ScrollView, Dimensions } from "react-native";
-import { returnIcon, backgroundImage, cancelIcon } from "./AssetsOldClientSurveyScreen";
+import { returnIcon, backgroundImage, cancelIcon } from "./AssetsOldEmployeeSurveyScreen";
 import Modal from "react-native-modal";
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
@@ -15,11 +15,11 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../../App";
+import { auth, db } from "../../../App";
 import { Badge } from "react-native-paper";
 
 
-const OldClientSurvey = () => {
+const OldEmployeeSurvey = () => {
 
   //CONSTANTES
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -47,7 +47,7 @@ const OldClientSurvey = () => {
   
 
   const paymentMethodsBarChartData = {
-    labels: ["Efectivo", "Debito", "Credito"],
+    labels: ["Agradable", "Regular", "Malo"],
     datasets: [
       {
         data: [paymentMethodEfectivo, paymentMethodDebito, paymentMethodCredito]
@@ -57,21 +57,21 @@ const OldClientSurvey = () => {
 
   const foodQualityPieChartData = [
     {
-      name: "Buena",
+      name: "Limpio",
       amount: foodQualityBuena,
       color: "green",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
-      name: "Regular",
+      name: "Normal",
       amount: foodQualityRegular,
       color: "yellow",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
-      name: "Mala",
+      name: "Sucio",
       amount: foodQualityMala,
       color: "red",
       legendFontColor: "#7F7F7F",
@@ -81,42 +81,42 @@ const OldClientSurvey = () => {
 
   const clientsOpinionsProggressRingData = [
     {
-      name: "Lugar Limpio",
+      name: "Elementos necesarios de trabajo",
       amount: clean,
       color: "green",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Lugar Sucio",
+      name: "Faltan elementos de trabajo",
       amount: dirty,
       color: "yellow",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Atención Rapida",
+      name: "Lugar en condiciones",
       amount: quickDelivery,
       color: "red",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Atencón Lenta",
+      name: "El lugar no esta en condiciones",
       amount: slowDelivery,
       color: "blue",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Estadia Agradable",
+      name: "Hay materia prima",
       amount: happy,
       color: "brown",
       legendFontColor: "#7F7F7F",
       legendFontSize: 13
     },
     {
-      name: "Estadia Mala",
+      name: "Falta materia prima",
       amount: sad,
       color: "orange",
       legendFontColor: "#7F7F7F",
@@ -126,8 +126,23 @@ const OldClientSurvey = () => {
 
   //RETURN
   const handleReturn = () => {
-    navigation.replace("TableControlPanel")
-  }
+    if(auth.currentUser?.email === "cincotenedoresmetre@gmail.com")
+    {
+      navigation.replace("ControlPanelMetre");
+    }
+    if(auth.currentUser?.email === "cincotenedoresmozo@gmail.com")
+    {
+      navigation.replace("ControlPanelMozo");
+    }
+    if(auth.currentUser?.email === "cincotenedorescocina@gmail.com")
+    {
+      navigation.replace("ControlPanelCocina");
+    }
+    if(auth.currentUser?.email === "cincotenedoresbar@gmail.com")
+    {
+      navigation.replace("ControlPanelBar");
+    }
+  };
 
   //TOOGLE SPINNER
   const toggleSpinnerAlert = () => {
@@ -154,7 +169,7 @@ const OldClientSurvey = () => {
   const getData = async () => {
     setData([]);    
     try {
-      const q = query(collection(db, "clientSurvey"));
+      const q = query(collection(db, "employeeSurvey"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const res: any = { ...doc.data(), id: doc.id };
@@ -172,43 +187,43 @@ const OldClientSurvey = () => {
     let sumWaiterEvaluations = 0;
 
     data.map((item: any) => {
-      if(item.clean == true)
+      if(item.yesWorkAssets == true)
         setClean(clean + item.clean);
       
-      if(item.dirty == true)
+      if(item.noWorkAssets == true)
         setDirty(dirty + item.dirty);
       
-      if(item.happy == true)
+      if(item.yesPlaceConditions == true)
         setHappy(happy + item.happy);
 
-      if(item.sad == true)
+      if(item.noPlaceConditions == true)
         setSad(sad + item.sad);
       
-      if(item.quickDelivery == true)
+      if(item.yesStock == true)
         setQuickDelivery(quickDelivery + item.quickDelivery);
       
-      if(item.slowDelivery == true)
+      if(item.noStock == true)
         setSlowDelivery(slowDelivery + item.slowDelivery);
 
       countWaiterEvaulations++;
-      sumWaiterEvaluations += item.waiterEvaluation;
+      sumWaiterEvaluations += item.workSatisfaction;
 
-      if(item.foodQuality == "buena"){
+      if(item.placeCondition == "Limpio"){
         setFoodQualityBuena(foodQualityBuena + 1);
       }
-      if(item.foodQuality == "mala"){
+      if(item.placeCondition == "Normal"){
         setFoodQualityMala(foodQualityMala + 1);
       }
-      if(item.foodQuality == "regular"){
+      if(item.placeCondition == "Sucio"){
         setFoodQualityRegular(foodQualityRegular + 1);
       }
-      if(item.payMethod == "Efectivo"){
+      if(item.workEnviroment == "Agradable"){
         setPaymentMethodEfectivo(paymentMethodEfectivo + 1);
       }
-      if(item.payMethod == "Debito"){
+      if(item.workEnviroment == "Regular"){
         setPaymentMethodDebito(paymentMethodDebito + 1);
       }
-      if(item.payMethod == "Credito"){
+      if(item.workEnviroment == "Malo"){
         setPaymentMethodCredito(paymentMethodCredito + 1);
       }     
     })
@@ -241,7 +256,7 @@ const OldClientSurvey = () => {
       <View style={styles.body}>
         
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>CALIDAD DE LA COMIDA</Text>
+          <Text style={styles.inputText}>CONDICIONES EDILICIAS</Text>
         </View>
 
         <PieChart
@@ -257,7 +272,7 @@ const OldClientSurvey = () => {
         />
 
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>MEDIOS DE PAGO PREFERIDOS</Text>
+          <Text style={styles.inputText}>CLIMA LABORAL</Text>
         </View>
 
         <BarChart
@@ -271,8 +286,12 @@ const OldClientSurvey = () => {
 
 
         <View style={styles.buttonLayout}>
-          <Text style={styles.inputText}>PROMEDIO CALIDAD ATENCION DE MOZOS</Text>
+          <Text style={styles.inputText}>PROMEDIO SATISFACCION LABORAL</Text>
           <Text style={styles.inputText}>{Math.round(averageWaiterEvaluation)} %</Text>
+        </View>
+
+        <View style={styles.buttonLayout}>
+        <Text style={styles.inputText}>OPINIONES VARIAS</Text>
         </View>
 
         <PieChart
@@ -289,9 +308,7 @@ const OldClientSurvey = () => {
       </View> 
       </ScrollView>
 
-      <View style={styles.buttonLayout}>
-        <Text style={styles.inputText}>OPINIONES VARIAS</Text>
-        </View>
+
       <View>
         <Modal backdropOpacity={0.5} animationIn="rotate" animationOut="rotate" isVisible={isModalSpinnerVisible}>
           <RotatingLogo></RotatingLogo>
@@ -303,4 +320,4 @@ const OldClientSurvey = () => {
   );
 };
 
-export default OldClientSurvey;
+export default OldEmployeeSurvey;

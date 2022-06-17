@@ -47,6 +47,7 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
 import { Audio } from "expo-av";
+import OldEmployeeSurvey from './components/surveys/oldEmployeeSurvey/OldEmployeeSurveyScreen';
 
 const audioPlayer = new Audio.Sound();
 
@@ -120,6 +121,7 @@ export default () => {
         <Stack.Screen options =  {{ headerShown: true }}  name="OldClientSurvey" component={OldClientSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="AdminSurvey" component={AdminSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="EmployeeSurvey" component={EmployeeSurvey} />
+        <Stack.Screen options =  {{ headerShown: true }}  name="OldEmployeeSurvey" component={OldEmployeeSurvey} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Chat" component={ChatScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="Menu" component={MenuScreen} />
         <Stack.Screen options =  {{ headerShown: true }}  name="QrMenu" component={QrMenuScreen} />
