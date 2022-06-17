@@ -143,8 +143,8 @@ SINNOTT SEGURA GONZALO
 ## CINCO TENEDORES APP - SEMANA 4 (11/06 AL 17/06):
 | # | Tarea | Responsable | Estado | Rama |
 | :------: | :------: | :------: | :------: | :------: |
-| 10 | Encuesta Empleado | PEDRO | En Proceso | Rama encuestaEmpleado |
-| 11 | Encuesta supervisor | CECILIA | En Proceso | Rama encuestaSupervisor |
+| 10 | Encuesta Empleado | PEDRO | Terminado | Rama encuestaEmpleado |
+| 11 | Encuesta supervisor | CECILIA | Terminado | Rama encuestaSupervisor |
 | 14 | Realizar pedidos | PEDRO | Terminado | Rama altaPedido | 
 | 15 | Confirmar pedidos | CECILIA | Terminado | Rama confirmacionPedido |
 | 17 | Agregar cliente nuevo | GONZALO | Terminado | Rama pushNotification |
