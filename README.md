@@ -87,11 +87,19 @@ SINNOTT SEGURA GONZALO
 | 08 | Qr de propina  | CECILIA | Terminado | Rama qrPropina |
 | 09 | Encuesta cliente | GONZALO | Terminado | Rama encuestaClientes |
 | 13 | Ingresar al local | GONZALO | Terminado | Rama ingresoLocal |
-| 17 | Agregar cliente nuevo | GONZALO | En Proceso | Rama altaClientePush |
 
 ## CINCO TENEDORES APP - SEMANA 4 (11/06 AL 17/06):
 | # | Tarea | Responsable | Estado | Rama |
 | :------: | :------: | :------: | :------: | :------: |
+| 10 | Encuesta Empleado | PEDRO | En Proceso | Rama encuestaEmpleado |
+| 11 | Encuesta supervisor | CECILIA | En Proceso | Rama encuestaSupervisor |
+| 14 | Realizar pedidos | PEDRO | Terminado | Rama altaPedido | 
+| 15 | Confirmar pedidos | CECILIA | Terminado | Rama confirmacionPedido |
+| 17 | Agregar cliente nuevo | GONZALO | Terminado | Rama pushNotification |
+| 18 | Ingresó al local | CECILIA | Terminado | Rama pushNotification |
+| 19 | Consultar al mozo | CECILIA | Terminado | Rama pushNotification |
+| 20 | Confirmar pedido (mozo) | PEDRO | Terminado | Rama pushNotification |
+| 21 | Confirmar pedido (bar/cocina) | PEDRO | Terminado | Rama pushNotification |
 
 ## CINCO TENEDORES APP - SEMANA 5 (18/06 AL 24/06):
 | # | Tarea | Responsable | Estado | Rama |
