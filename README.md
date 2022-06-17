@@ -25,23 +25,62 @@ SINNOTT SEGURA GONZALO
 
 #### SPLASH, PANTALLA DE INICIO E INICIO RAPIDO
 
-<img src="Documentos/splash.gif" width="300"/><img src="Documentos/login.jpeg" width="245"/> <img src="Documentos/inicioRapido.jpeg" width="245"/>
+<img src="Documentos/screens/inicio/splash.gif" width="300"/> <img src="Documentos/screens/inicio/login.jpeg" width="245"/> <img src="Documentos/screens/inicio/inicioRapido.jpeg" width="245"/>
 
-#### PANEL DE CONTROL DE ADMINISTRADOR Y ALTA DE CLIENTE
+#### PANEL DE CONTROL DE ADMINISTRADOR Y ALTA DUEÑO/SUPERVISOR - EMPLEADO - MESA
 
-<img src="Documentos/panelControlAdmin.jpeg" width="245"/><img src="Documentos/altaCliente.jpeg" width="245"/>
+<img src="Documentos/screens/admin/inicioAdmin.jpeg" width="245"/> <img src="Documentos/screens/admin/altaDueño.jpeg" width="245"/> <img src="Documentos/screens/admin/altaEmpleado.jpeg" width="245"/> <img src="Documentos/screens/admin/altaMesa.jpeg" width="245"/>
 
-#### INGRESO AL LOCAL Y PANEL DE CONTROL MESA
+#### ADMINISTRACION ALTA DE NUEVO CLIENTE Y RECHAZO DE ALTA DE NUEVO CLIENTE
 
-<img src="Documentos/ingresoLocal.jpeg" width="245"/><img src="Documentos/panelControlMesa.jpeg" width="245"/>
+<img src="Documentos/screens/admin/altaNuevoCliente.jpeg" width="245"/> <img src="Documentos/screens/admin/rechazoAltaNuevoCliente.jpeg" width="245"/> 
 
-#### ENCUESTA CLIENTE Y RESULTADOS DE ENCUESTA
+#### EVALUACION DE EMPLEADOS
 
-<img src="Documentos/encuestaCliente.jpeg" width="245"/><img src="Documentos/resultadosEncuestas.jpeg" width="245"/>
+<img src="Documentos/screens/admin/evaluacionEmpleados.jpeg" width="245"/> <img src="Documentos/screens/admin/encuestaEmpleados.jpeg" width="245"/> <img src="Documentos/screens/admin/resultadosEncuestaEmpleados.jpeg" width="245"/>
 
-#### MAIL DE ALTA
+#### INGRESO AL LOCAL DE CLIENTE Y PANEL DE CLIENTE
 
-<img src="Documentos/mail.jpeg" width="500"/>
+<img src="Documentos/screens/cliente/ingresoLocal.jpeg" width="245"/> <img src="Documentos/screens/cliente/listaEspera.jpeg" width="245"/> <img src="Documentos/screens/cliente/mesaAsignada.jpeg" width="245"/>
+
+#### CHAT, MENU, PEDIDO Y PAGO DE CLIENTE
+
+<img src="Documentos/screens/cliente/chat.jpeg" width="245"/> <img src="Documentos/screens/cliente/pedido.jpeg" width="245"/> <img src="Documentos/screens/cliente/confirmacionPedido.jpeg" width="245"/><img src="Documentos/screens/cliente/pago.jpeg" width="245"/>
+
+#### ENCUESTA CLIENTE
+
+<img src="Documentos/screens/cliente/encuesta.jpeg" width="245"/> <img src="Documentos/screens/cliente/resultadosEncuesta.jpeg" width="245"/>
+
+#### INICIO MOZO Y ADMINISTRACION MESAS
+
+<img src="Documentos/screens/mozo/inicioMozo.jpeg" width="245"/> <img src="Documentos/screens/mozo/administracionMesas.jpeg" width="245"/> 
+<img src="Documentos/screens/mozo/confirmarOrden.jpeg" width="245"/> 
+
+#### CHAT Y MENU (MOZO)
+
+<img src="Documentos/screens/mozo/chat.jpeg" width="245"/> <img src="Documentos/screens/mozo/menu.jpeg" width="245"/> 
+<img src="Documentos/screens/mozo/menuQR.jpeg" width="245"/> 
+
+#### INICIO METRE, ADMINISTRACION MESAS Y ALTA CLIENTE
+
+<img src="Documentos/screens/metre/inicioMetre.jpeg" width="245"/> <img src="Documentos/screens/metre/altaCliente.jpeg" width="245"/> 
+<img src="Documentos/screens/metre/adminstrarMesas.jpeg" width="245"/> <img src="Documentos/screens/metre/asignarMesas.jpeg" width="245"/> 
+
+#### INICIO BAR, ALTA PRODUCTO, ADMINSTRACION PEDIDOS
+
+<img src="Documentos/screens/bar/inicioBar.jpeg" width="245"/> <img src="Documentos/screens/bar/altaProducto.jpeg" width="245"/> 
+<img src="Documentos/screens/bar/pedido.jpeg" width="245"/> 
+
+#### INICIO COCINA, ALTA PRODUCTO, ADMINSTRACION PEDIDOS
+
+<img src="Documentos/screens/cocina/inicioCocina.jpeg" width="245"/> <img src="Documentos/screens/cocina/altaProducto.jpeg" width="245"/> 
+<img src="Documentos/screens/cocina/pedido.jpeg" width="245"/> 
+
+#### ENCUESTAS COMUNES A TODOS LOS EMPLEADOS
+
+<img src="Documentos/screens/comunesEmpleados/encuesta.jpeg" width="245"/> <img src="Documentos/screens/comunesEmpleados/resultadoEncuesta.jpeg" width="245"/> 
+
+
 
 #### QR INGRESO AL LOCAL
 
