@@ -174,7 +174,7 @@ const NewEmployeeSurvey = () => {
   );
 
   //SELECT
-  const [placeCondition, setplaceCondition] = useState("Bueno");
+  const [placeCondition, setplaceCondition] = useState("Limpio");
 
   const handlePickerChange = (value, index) => {
     console.log(value, index);
@@ -318,12 +318,12 @@ const NewEmployeeSurvey = () => {
                   <Picker.Item
                     style={styles.inputText}
                     label="Normal"
-                    value="normal"
+                    value="Normal"
                   />
                   <Picker.Item
                     style={styles.inputText}
                     label="Sucio"
-                    value="sucio"
+                    value="Sucio"
                   />
                 </Picker>
               </View>

@@ -17,13 +17,15 @@ import {
   refreshIcon,
 } from "./AssetsWaiterOrderScreen";
 import Modal from "react-native-modal";
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import {
   collection,
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -48,6 +50,9 @@ const WaiterOrder = () => {
   const [orderData, setOrderData] = useState<any>([]);
   const [waitingListData, setWaitingListData] = useState<any>([]);
   const [client, setClient] = useState("");
+  const [isModalInvoiceVisible, setModalInvoiceVisible] = useState(false);
+  const [invoiceData, setInvoiceData] = useState<any>([]);
+
 
   //RETURN
   const handleReturn = () => {
@@ -60,6 +65,19 @@ const WaiterOrder = () => {
     getWaitingListData();
     toggleSpinnerAlert();
   };
+
+  useLayoutEffect(() => {
+    const unsubscribe = onSnapshot(query(collection(db, "tableinfo")), (snapshot =>
+      setTableData(snapshot.docs.map(doc => ({
+        id: doc.data().id,
+        tableNumber: doc.data().tableNumber,
+        assignedClient: doc.data().assignedClient,
+        status: doc.data().status,
+        orderStatus: doc.data().orderStatus
+        })))
+    ))
+    return unsubscribe;
+  }, [])
 
   //REFRESH DE LA DATA
   useFocusEffect(
@@ -93,6 +111,20 @@ const WaiterOrder = () => {
     }
   };
 
+  const getInvoicetData = async (client) => {
+    setInvoiceData([]);
+    try {
+      const q = query(collection(db, "invoice"),where("client", "==", client));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (doc) => {
+        const res: any = { ...doc.data(), id: doc.id };
+        setInvoiceData((arr: any) => [...arr, { ...res, id: doc.id }]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTables = async () => {
     setLoadingTables(true);
     setTableData([]);
@@ -101,7 +133,7 @@ const WaiterOrder = () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const res: any = { ...doc.data(), id: doc.id };
-        setTableData((arr: any) => [...arr, { ...res, id: doc.id }]);
+        setTableData((arr: any) => [...arr, { ...res, id: doc.id }].sort((a, b) => a.tableNumber.localeCompare(b.tableNumber)));
       });
     } catch (error) {
       console.log(error);
@@ -169,6 +201,10 @@ const WaiterOrder = () => {
     }
 
     if(status === "orderPaid"){
+      toggleSpinnerAlert();
+      getInvoicetData(client);
+      setModalInvoiceVisible(true);
+
       try {      
         const ref = doc(db, "tableInfo", id);
         const orderStatus: any = "";
@@ -300,6 +336,10 @@ const WaiterOrder = () => {
       !isModalSendOrderToElaborationOrderVisible
     );
   };
+
+  const toggleModalInvoice = () => {
+    setModalInvoiceVisible(!isModalInvoiceVisible);
+  }
 
   //HEADER
   useLayoutEffect(() => {
@@ -489,6 +529,48 @@ const WaiterOrder = () => {
                     </View>
                   </ScrollView>
                 )
+              )}
+              <View style={styles.rowContainer}>
+                <TouchableOpacity onPress={() => confirmElaboration(client)}>
+                  <Image source={confirmIcon} style={styles.cardIcon} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleModalOrderElaboration}>
+                  <Image source={cancelIcon} style={styles.cardIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          backdropOpacity={0.5}
+          isVisible={isModalInvoiceVisible}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalBody}>
+              <Text style={styles.tableHeaderText}>
+                  RESUMEN DEL PAGO
+              </Text>
+              {invoiceData.map(
+                (item: { table: any; client: any; subtotal: any; tip: any; total: any; products: any; }) => (
+                   <View>    
+                      <Text style={styles.tableCellText}>
+                        MESA NUMERO: {item.table}
+                      </Text>
+                      <Text style={styles.tableCellText}>
+                        CLIENTE: {item.client}
+                      </Text>
+                      <Text style={styles.tableCellText}>
+                        SUBTOTAL: {item.subtotal}
+                      </Text>
+                      <Text style={styles.tableCellText}>
+                        PROPINA: {item.tip}
+                      </Text>
+                      <Text style={styles.tableCellText}>
+                        TOTAL: {item.total}
+                      </Text>
+                    </View>
+                )                
               )}
               <View style={styles.rowContainer}>
                 <TouchableOpacity onPress={() => confirmElaboration(client)}>

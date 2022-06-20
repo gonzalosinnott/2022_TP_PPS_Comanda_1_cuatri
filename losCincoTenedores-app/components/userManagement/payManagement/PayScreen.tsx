@@ -6,7 +6,7 @@ import { returnIcon, backgroundImage, cancelIcon, qrIcon } from "./AssetsPayScre
 import Modal from "react-native-modal";
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
-import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { auth, db } from "../../../App";
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -27,6 +27,7 @@ const Pay = () => {
   const [total, setTotal] = useState(0);
   const [scanned, setScanned] = useState(false);
   const [openQR, setOpenQR] = useState(false);
+  const [subtotal, setSubtotal] = useState(0);
 
 
   //RETURN
@@ -147,6 +148,7 @@ const Pay = () => {
         priceArray.push(item.price * item.amount)
       )      
     )}
+    setSubtotal(priceArray.reduce((a, b) => a + b, 0));
     setTotal(priceArray.reduce((a, b) => a + b, 0)+tip);
   }
 
@@ -159,7 +161,16 @@ const Pay = () => {
   }; 
 
   const handlePay = async () => {
-    changeTableStatus();
+    await addDoc(collection(db, "invoice"), {
+      table:tableNumber,
+      client:tableLCient,
+      subtotal:subtotal,
+      tip:tip,
+      total:total,
+      products: dataOrder,              
+    }); 
+    
+    changeTableStatus();    
     deleteOrders();
     handleReturn();
   }
@@ -258,6 +269,13 @@ const Pay = () => {
                   </View>
                 )
               )}
+            </View>
+
+            <View style={styles.cardStyle}>
+              <View style={styles.infoContainer}>
+                <Text style={styles.tableHeaderText}>SUBTOTAL</Text>
+                <Text style={styles.tableHeaderText}>$ {subtotal}</Text>
+              </View>
             </View>
 
             <View style={styles.cardStyle}>

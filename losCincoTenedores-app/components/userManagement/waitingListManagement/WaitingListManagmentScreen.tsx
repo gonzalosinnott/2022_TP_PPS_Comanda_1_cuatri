@@ -71,7 +71,7 @@ const WaitingListManagment = () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const res: any = { ...doc.data(), id: doc.id };
-        setDataTables((arr: any) => [...arr, { ...res, id: doc.id}]);
+        setDataTables((arr: any) => [...arr, { ...res, id: doc.id}].sort((a, b) => a.tableNumber.localeCompare(b.tableNumber)));
       });
     } catch (error) {
         console.log(error)                    

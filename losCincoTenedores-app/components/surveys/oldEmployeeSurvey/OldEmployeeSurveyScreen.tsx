@@ -211,10 +211,10 @@ const OldEmployeeSurvey = () => {
       if(item.placeCondition == "Limpio"){
         setFoodQualityBuena(foodQualityBuena + 1);
       }
-      if(item.placeCondition == "normal"){
+      if(item.placeCondition == "Normal"){
         setFoodQualityMala(foodQualityMala + 1);
       }
-      if(item.placeCondition == "sucio"){
+      if(item.placeCondition == "Sucio"){
         setFoodQualityRegular(foodQualityRegular + 1);
       }
       if(item.workEnviroment == "Agradable"){

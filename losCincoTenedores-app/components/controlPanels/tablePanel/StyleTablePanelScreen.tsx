@@ -32,8 +32,9 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         alignItems: 'center', 
-        alignContent: 'center', 
-        justifyContent: 'flex-start', 
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center', 
         marginBottom: 5
     },
     qrIcon: {
@@ -49,7 +50,7 @@ export default StyleSheet.create({
         marginTop: 20,
         margin: 5,
         width: "65%",
-        height: 80,
+        height: 100,
         padding: 15,
         borderRadius: 30,
         borderWidth: 0,
@@ -62,7 +63,7 @@ export default StyleSheet.create({
         borderColor: '#A4C3B2',
         marginTop: 20,
         margin: 5,
-        width: "80%",
+        width: "95%",
         height: 60,
         padding: 15,
         borderRadius: 30,
@@ -77,6 +78,7 @@ export default StyleSheet.create({
     tableButtonLayout: {
         flexDirection: "row", 
         alignItems: 'center', 
+
     }, 
     buttonImage: {
         justifyContent: 'flex-start',
@@ -92,5 +94,35 @@ export default StyleSheet.create({
     },
     noTableSelected: {
         marginTop: 400,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    modalBody: {
+        borderColor: '#DCDCE1',
+        backgroundColor: '#DCDCE1',
+        borderWidth: 2,
+        padding: 15,
+        borderRadius: 25,
+    },
+    cardIcon: {
+        padding: 10,
+        margin: 5,
+        height: 50,
+        width: 50,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+    },
+    tableHeaderText: {
+        color: 'black',
+        fontSize: 25,
+        fontFamily: 'Oswald_500Medium',
+        textAlign: 'center',
+    },
+    tableCellText: {
+        color: 'black',
+        fontSize: 18,
+        fontFamily: 'Oswald_500Medium',
     },
 });

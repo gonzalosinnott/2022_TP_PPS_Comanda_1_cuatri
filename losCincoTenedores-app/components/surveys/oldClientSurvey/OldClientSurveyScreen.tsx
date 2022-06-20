@@ -275,6 +275,10 @@ const OldClientSurvey = () => {
           <Text style={styles.inputText}>{Math.round(averageWaiterEvaluation)} %</Text>
         </View>
 
+        <View style={styles.buttonLayout}>
+        <Text style={styles.inputText}>OPINIONES VARIAS</Text>
+        </View>
+
         <PieChart
           data={clientsOpinionsProggressRingData}
           width={win.width * 0.9}
@@ -289,9 +293,7 @@ const OldClientSurvey = () => {
       </View> 
       </ScrollView>
 
-      <View style={styles.buttonLayout}>
-        <Text style={styles.inputText}>OPINIONES VARIAS</Text>
-        </View>
+      
       <View>
         <Modal backdropOpacity={0.5} animationIn="rotate" animationOut="rotate" isVisible={isModalSpinnerVisible}>
           <RotatingLogo></RotatingLogo>

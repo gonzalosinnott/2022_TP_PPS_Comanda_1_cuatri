@@ -8,3 +8,4 @@ export const menuIcon = require("../../../assets/common/menu.png");
 export const orderIcon = require("../../../assets/common/order.png");
 export const payIcon = require("../../../assets/common/pay.png");
 export const chatIcon = require("../../../assets/common/chat.png");
+export const cancelIcon = require("../../../assets/common/cancel.png");

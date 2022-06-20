@@ -20,8 +20,8 @@ import React, { useCallback, useLayoutEffect, useState } from "react";
 import RotatingLogo from "../../rotatingLogo/RotatingLogo";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-simple-toast";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../App";
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { auth, db } from "../../../App";
 
 //IMPORTS DEL FORM
 import Slider from "@react-native-community/slider";
@@ -60,11 +60,28 @@ const NewClientSurvey = () => {
   const [slowDelivery, setSlowDelivery] = useState(false);
   const [happy, setHappy] = useState(false);
   const [sad, setSad] = useState(false);
+  const [clientData, setClientData] = useState<any>([]);
+
 
   //RETURN
   const handleReturn = () => {
     navigation.replace("TableControlPanel");
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      checkClientStatus();
+  }, []))
+
+  const checkClientStatus = async () => {
+    const q = query(collection(db, "tableInfo"), where("assignedClient", "==", auth.currentUser?.email), where("survey", "==", "no"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (doc) => {
+      const res: any = { ...doc.data(), id: doc.id };
+      setClientData((arr: any) => [...arr, { ...res, id: doc.id}].sort((a, b) => a.name.localeCompare(b.name)));
+    });
+
+  }
 
   //TOOGLE SPINNER
   const toggleSpinnerAlert = () => {
@@ -109,6 +126,15 @@ const NewClientSurvey = () => {
         "ENCUESTA CARGADA EXITOSAMENTE",
         Toast.LONG,
         Toast.CENTER
+      );
+      clientData.map(
+        async (item: { id: any; assignedClient: any }) => {
+          if (item.assignedClient === auth.currentUser?.email) {
+            const ref = doc(db, "tableInfo", item.id);
+            const survey : any = "yes";
+            await updateDoc(ref, { survey: survey });    
+          }
+        }
       );
       reset();
       handleReturn();

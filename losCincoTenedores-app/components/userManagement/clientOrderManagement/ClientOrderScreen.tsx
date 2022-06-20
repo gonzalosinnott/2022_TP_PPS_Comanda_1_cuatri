@@ -118,10 +118,7 @@ const ClientOrder = () => {
     const qrImage1 = dataSplit[6];
     const qrImage2 = dataSplit[7];
     const qrImage3 = dataSplit[8];
-
-     
-
-
+    
     if (qrType === "producto") {
       setQrName(qrName);
       setQrDescription(qrDescription);
