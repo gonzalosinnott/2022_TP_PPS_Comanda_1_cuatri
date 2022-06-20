@@ -53,6 +53,8 @@ export default StyleSheet.create({
     width: 100,
     borderRadius: 20,
     margin: 10,
+    backgroundColor: 'white',
+
   },
   inputContainer: {
     width: "80%",

@@ -33,7 +33,9 @@ export default StyleSheet.create({
         height:250, 
         width:250, 
         borderRadius:20, 
-        margin:10
+        margin:10,
+        backgroundColor: 'white',
+
     },
     buttonLayout: {
         backgroundColor: '#A4C3B2',
