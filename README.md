@@ -41,11 +41,13 @@ SINNOTT SEGURA GONZALO
 
 #### INGRESO AL LOCAL DE CLIENTE Y PANEL DE CLIENTE
 
-<img src="Documentos/screens/cliente/ingresoLocal.jpeg" width="245"/> <img src="Documentos/screens/cliente/listaEspera.jpeg" width="245"/> <img src="Documentos/screens/cliente/mesaAsignada.jpeg" width="245"/>
+<img src="Documentos/screens/cliente/ingresoLocal.jpeg" width="245"/> <img src="Documentos/screens/cliente/listaEspera.jpeg" width="245"/> <img src="Documentos/screens/cliente/listaEspera2.jpeg" width="245"/> <img src="Documentos/screens/cliente/mesaAsignada.jpeg" width="245"/>
 
 #### CHAT, MENU, PEDIDO Y PAGO DE CLIENTE
 
-<img src="Documentos/screens/cliente/chat.jpeg" width="245"/> <img src="Documentos/screens/cliente/pedido.jpeg" width="245"/> <img src="Documentos/screens/cliente/confirmacionPedido.jpeg" width="245"/><img src="Documentos/screens/cliente/pago.jpeg" width="245"/>
+<img src="Documentos/screens/cliente/chat.jpeg" width="245"/> <img src="Documentos/screens/cliente/pedido.jpeg" width="245"/> <img src="Documentos/screens/cliente/confirmacionPedido.jpeg" width="245"/> <img src="Documentos/screens/cliente/recepcionPedido.jpeg" width="245"/>
+
+<img src="Documentos/screens/cliente/pago.jpeg" width="245"/>
 
 #### ENCUESTA CLIENTE
 
@@ -54,7 +56,7 @@ SINNOTT SEGURA GONZALO
 #### INICIO MOZO Y ADMINISTRACION MESAS
 
 <img src="Documentos/screens/mozo/inicioMozo.jpeg" width="245"/> <img src="Documentos/screens/mozo/administracionMesas.jpeg" width="245"/> 
-<img src="Documentos/screens/mozo/confirmarOrden.jpeg" width="245"/> 
+<img src="Documentos/screens/mozo/confirmarOrden.jpeg" width="245"/> <img src="Documentos/screens/mozo/confirmarPago.jpeg" width="245"/> 
 
 #### CHAT Y MENU (MOZO)
 
@@ -66,15 +68,15 @@ SINNOTT SEGURA GONZALO
 <img src="Documentos/screens/metre/inicioMetre.jpeg" width="245"/> <img src="Documentos/screens/metre/altaCliente.jpeg" width="245"/> 
 <img src="Documentos/screens/metre/adminstrarMesas.jpeg" width="245"/> <img src="Documentos/screens/metre/asignarMesas.jpeg" width="245"/> 
 
-#### INICIO BAR, ALTA PRODUCTO, ADMINSTRACION PEDIDOS
+#### INICIO BAR, ALTA PRODUCTO, ADMINISTRACION PEDIDOS
 
 <img src="Documentos/screens/bar/inicioBar.jpeg" width="245"/> <img src="Documentos/screens/bar/altaProducto.jpeg" width="245"/> 
 <img src="Documentos/screens/bar/pedido.jpeg" width="245"/> 
 
-#### INICIO COCINA, ALTA PRODUCTO, ADMINSTRACION PEDIDOS
+#### INICIO COCINA, ALTA PRODUCTO, ADMINISTRACION PEDIDOS
 
 <img src="Documentos/screens/cocina/inicioCocina.jpeg" width="245"/> <img src="Documentos/screens/cocina/altaProducto.jpeg" width="245"/> 
-<img src="Documentos/screens/cocina/pedido.jpeg" width="245"/> 
+<img src="Documentos/screens/cocina/pedidos.jpeg" width="245"/> 
 
 #### ENCUESTAS COMUNES A TODOS LOS EMPLEADOS
 
