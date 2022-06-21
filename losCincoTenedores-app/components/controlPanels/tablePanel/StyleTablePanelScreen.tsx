@@ -58,6 +58,20 @@ export default StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center'
     },
+    orderLayoutHeader: {
+        backgroundColor: '#A4C3B2',
+        borderColor: '#A4C3B2',
+        marginTop: 20,
+        margin: 5,
+        width: "80%",
+        height: 100,
+        padding: 15,
+        borderRadius: 30,
+        borderWidth: 0,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center'
+    },
     buttonLayout: {
         backgroundColor: '#A4C3B2',
         borderColor: '#A4C3B2',

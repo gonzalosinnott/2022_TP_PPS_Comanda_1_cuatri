@@ -170,13 +170,17 @@ const ClientRegistration = () => {
           Toast.CENTER);
         return;
       }
-      if(values.dni.length!==8){
-        Toast.showWithGravity(
-          "El DNI debe tener 8 caracteres",
-          Toast.LONG,
-          Toast.CENTER);
-        return;
-      }      
+      if(values.clientType === "Registrado") 
+      {
+        if(values.dni.length!==8){
+          Toast.showWithGravity(
+            "El DNI debe tener 8 caracteres",
+            Toast.LONG,
+            Toast.CENTER);
+          return;
+        }
+
+      }     
       if(!values.email.includes("@")){
         Toast.showWithGravity(
           "El correo electrónico no es válido",

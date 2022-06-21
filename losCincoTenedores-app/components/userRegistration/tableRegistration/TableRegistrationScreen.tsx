@@ -122,6 +122,7 @@ const TableRegistration = () => {
           status: "free",
           assignedClient: "",
           orderStatus: "waitingOrder",
+          survey: "no",
           creationDate:new Date()          
         });        
         Toast.showWithGravity(

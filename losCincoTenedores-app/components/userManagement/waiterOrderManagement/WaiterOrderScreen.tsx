@@ -33,6 +33,7 @@ import {
 import { db } from "../../../App";
 import Toast from "react-native-simple-toast";
 import { sendPushNotification } from "../../pushNotification/PushNotification";
+import { splitUserFromEmail } from "../../../utils/utils";
 
 const WaiterOrder = () => {
   //CONSTANTES
@@ -210,9 +211,11 @@ const WaiterOrder = () => {
         const orderStatus: any = "";
         const status : any = "free";
         const assignedClient: any = "";
+        const survey = "no";
         await updateDoc(ref, { status: status });
         await updateDoc(ref, { orderStatus: orderStatus });
-        await updateDoc(ref, { assignedClient: assignedClient });      
+        await updateDoc(ref, { assignedClient: assignedClient });  
+        await updateDoc(ref, { survey: survey });          
       } catch (error: any) {
         Toast.showWithGravity(error.code, Toast.LONG, Toast.CENTER);
       } 
@@ -338,7 +341,7 @@ const WaiterOrder = () => {
   };
 
   const toggleModalInvoice = () => {
-    setModalInvoiceVisible(!isModalInvoiceVisible);
+    setModalInvoiceVisible(false);
   }
 
   //HEADER
@@ -558,25 +561,25 @@ const WaiterOrder = () => {
                         MESA NUMERO: {item.table}
                       </Text>
                       <Text style={styles.tableCellText}>
-                        CLIENTE: {item.client}
+                        CLIENTE: {splitUserFromEmail(item.client)}
                       </Text>
                       <Text style={styles.tableCellText}>
-                        SUBTOTAL: {item.subtotal}
+                        SUBTOTAL: $ {item.subtotal}
                       </Text>
                       <Text style={styles.tableCellText}>
-                        PROPINA: {item.tip}
+                        PROPINA: $ {item.tip}
                       </Text>
                       <Text style={styles.tableCellText}>
-                        TOTAL: {item.total}
+                        TOTAL: $ {item.total}
                       </Text>
                     </View>
                 )                
               )}
               <View style={styles.rowContainer}>
-                <TouchableOpacity onPress={() => confirmElaboration(client)}>
+                <TouchableOpacity onPress={toggleModalInvoice}>
                   <Image source={confirmIcon} style={styles.cardIcon} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={toggleModalOrderElaboration}>
+                <TouchableOpacity onPress={toggleModalInvoice}>
                   <Image source={cancelIcon} style={styles.cardIcon} />
                 </TouchableOpacity>
               </View>

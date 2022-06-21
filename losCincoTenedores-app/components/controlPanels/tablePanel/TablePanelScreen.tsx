@@ -345,16 +345,18 @@ const TablePanel = () => {
                   <Text style={styles.buttonText}>PARA INGRESAR A SU MESA</Text>
                 </View>
               ) : (
-                <View style={styles.buttonLayoutHeader}>
-                  <Text style={styles.buttonText}>
-                    MESA NUMERO {tableNumber}
-                  </Text>
-                  <Text style={styles.buttonText}>
-                    ESCANEE EL CODIGO QR DE SU MESA
-                  </Text>
-                  <Text style={styles.buttonText}>
-                    PARA CONTINUAR
-                  </Text>
+                <View> 
+                  <View style={styles.buttonLayoutHeader}>
+                    <Text style={styles.buttonText}>
+                      MESA NUMERO {tableNumber}
+                    </Text>
+                    <Text style={styles.buttonText}>
+                      ESCANEE EL CODIGO QR DE SU MESA
+                    </Text>
+                    <Text style={styles.buttonText}>
+                      PARA CONTINUAR
+                    </Text>
+                  </View>
                 </View>
               )}
 
@@ -452,7 +454,7 @@ const TablePanel = () => {
             <Modal backdropOpacity={0.5} isVisible={isModalConfirmOrderVisible}>
           <View style={styles.modalContainer}>
             <View style={styles.modalBody}>
-              <Text style={styles.tableHeaderText}>ORDEN</Text>                
+              <Text style={styles.tableHeaderText}>PEDIDO RECIBIDO</Text>                
 
               <ScrollView>
                 {dataOrder.map((item: { id: any; name: any; amount:any }) => (
